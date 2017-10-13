@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="../template/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+						
+						
+						
+						<div class="card-footer small text-muted">
+
+								<p:dataTable var="culturas" value="#{propriedadeBean.propriedade.culturaPropriedade}">
+
+
+									<p:column headerText="Cultura" width="4%" style="text-align:center;">
+										<h:outputText value="#{culturas.cultura.nome}" />
+									</p:column>
+									
+									<p:column headerText="Descrição" width="4%" style="text-align:center;">
+										<h:outputText value="#{culturas.cultura.descricao}" />
+									</p:column>
+									
+								</p:dataTable>
+							</div>
+						
+						
+						
+						
+
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Cadastro de Propriedades
+
+							</div>
+
+							<div class="card-footer small text-muted">
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome da
+										Propriedade</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.nomePropriedade}" />
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="control-label col-sm-2">Cultura(s) plantada(s)</label>
+									<p:selectManyMenu id="adv" value="#{propriedadeBean.culturas}">
+										
+									
+									
+									</p:selectManyMenu>
+								</div>
+								
+								<div class="form-group">
+									<label class="control-label col-sm-2">País</label>
+									<div class="col-sm-3">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.pais}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">UF</label>
+									<div class="col-sm-1">
+										<h:selectOneMenu styleClass="btn btn-default dropdown-toggle"
+											style="border:1px solid rgba(0, 0, 0, .15);"
+											value="#{propriedadeBean.propriedade.uf}">
+											<f:selectItem itemValue="AC" />
+											<f:selectItem itemValue="AL" />
+											<f:selectItem itemValue="AP" />
+											<f:selectItem itemValue="AM" />
+											<f:selectItem itemValue="BA" />
+											<f:selectItem itemValue="CE" />
+											<f:selectItem itemValue="DF" />
+											<f:selectItem itemValue="ES" />
+											<f:selectItem itemValue="GO" />
+											<f:selectItem itemValue="MA" />
+											<f:selectItem itemValue="MT" />
+											<f:selectItem itemValue="MS" />
+											<f:selectItem itemValue="MG" />
+											<f:selectItem itemValue="PA" />
+											<f:selectItem itemValue="PB" />
+											<f:selectItem itemValue="PR" />
+											<f:selectItem itemValue="PE" />
+											<f:selectItem itemValue="PI" />
+											<f:selectItem itemValue="RJ" />
+											<f:selectItem itemValue="RN" />
+											<f:selectItem itemValue="RS" />
+											<f:selectItem itemValue="RO" />
+											<f:selectItem itemValue="RR" />
+											<f:selectItem itemValue="SC" />
+											<f:selectItem itemValue="SP" />
+											<f:selectItem itemValue="SE" />
+											<f:selectItem itemValue="TO" />
+
+										</h:selectOneMenu>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Localidade</label>
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.localidade}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Cidade</label>
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.cidade}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome Responsável</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.nomeResponsavel}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Telefone
+										Responsavel</label>
+									<div class="col-sm-3">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.telefoneResponsavel}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome Proprietário</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.nomeProprietario}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Telefone
+										Proprietário</label>
+									<div class="col-sm-3">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.telefoneProprietario}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">CPF</label>
+									<div class="col-sm-3">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.cpf}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Latitude</label>
+									<div class="col-sm-3">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.latitude}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Longitude</label>
+									<div class="col-sm-3">
+										<h:inputText class="form-control"
+											value="#{propriedadeBean.propriedade.longitude}" />
+									</div>
+								</div>
+								<hr />
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<h:commandLink action="#{propriedadeBean.salvar()}"
+											value="Confirmar" class="btn btn-default"
+											style="background-color: green; color:white; margin-right:5px" />
+										<h:commandLink action="propriedades" value="Cancelar"
+											class="btn btn-default"
+											style="background-color: red; color:white;" />
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

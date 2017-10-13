@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://java.sun.com/jsf/core">
+
+<h:body>
+
+	<ui:composition template="../template/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+
+
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Cadastro de Culturas
+
+							</div>
+
+							<div class="card-footer small text-muted">
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome da Cultura</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{culturaBean.cultura.nome}" />
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Área de Plantio
+										(m<sup>2</sup>)
+									</label>
+
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{culturaBean.cultura.areaPlantio}" />
+									</div>
+
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Período do
+										Plantio</label>
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{culturaBean.cultura.periodoPlantio}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Período da
+										Colheita</label>
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{culturaBean.cultura.periodoColheita}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Descrição</label>
+									<div class="col-sm-10">
+										<h:inputTextarea class="form-control" cols="30" rows="3"
+											value="#{culturaBean.cultura.descricao}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Observações</label>
+									<div class="col-sm-10">
+										<h:inputTextarea class="form-control" cols="30" rows="3"
+											value="#{culturaBean.cultura.obs}" />
+									</div>
+								</div>
+								<hr />
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<h:commandLink action="#{culturaBean.salvar()}"
+											value="Confirmar" class="btn btn-default"
+											style="background-color: green; color:white; margin-right:5px" />
+										<h:commandLink action="culturas" value="Cancelar"
+											class="btn btn-default"
+											style="background-color: red; color:white;" />
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

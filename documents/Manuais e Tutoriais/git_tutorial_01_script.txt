@@ -1,0 +1,15 @@
+1 - Abra o git bash e selecione a pasta onde deseja salvar o repositório.
+
+2 - Clone o repositório remoto usando:
+    "git clone https://github.com/washingtonSR/mcpd.git".
+
+3 - Por meio do terminal entre no repositório local que foi criado.
+
+4 - Verifique se o repositório local esta conectado ao remoto usando:
+    "git remote -v".
+
+5 - Caso tenha um brach criado siga a etapa 6, se não use o comando:
+    "git checkout -b (app/web/database)_(seu nome)"
+
+6 - Selecione o branch na qual você ira trabalhar com o comando:
+    "git checkout (nome do branch)"

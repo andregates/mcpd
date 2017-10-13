@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://java.sun.com/jsf/core">
+
+<h:body>
+
+	<ui:composition template="../template/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+
+
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Cadastro de Pragas
+
+							</div>
+
+							<div class="card-footer small text-muted">
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{pragaBean.praga.nome}" />
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome Científico</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{pragaBean.praga.nomeCientifico}" />
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Descrição</label>
+									<div class="col-sm-10">
+										<h:inputTextarea class="form-control" cols="30" rows="3"
+											value="#{pragaBean.praga.descricao}" />
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Gravidade de Dano</label>
+									<div class="col s6">
+										<p:selectOneRadio id="pra" value="#{pragaBean.praga.escala1}"
+											style="margin-left:5%; font-size:12px; padding:50px">
+											<f:selectItem itemLabel="Muito Baixo" itemValue="Muito Baixo" />
+											<f:selectItem itemLabel="Baixo" itemValue="Baixo" />
+											<f:selectItem itemLabel="Médio" itemValue="Médio" />
+											<f:selectItem itemLabel="Alto" itemValue="Alto" />
+											<f:selectItem itemLabel="Muito Alto" itemValue="Muito Alto" />
+
+										</p:selectOneRadio>
+									</div>
+
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Ação de Combate</label>
+									<div class="col-sm-10">
+										<h:inputTextarea class="form-control" cols="30" rows="3"
+											value="#{pragaBean.praga.acaoCombate}" />
+
+									</div>
+								</div>
+
+
+								<hr />
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<h:commandLink action="#{pragaBean.salvar()}"
+											value="Confirmar" class="btn btn-default"
+											style="background-color: green; color:white; margin-right:5px" />
+										<h:commandLink action="pragas" value="Cancelar"
+											class="btn btn-default"
+											style="background-color: red; color:white;" />
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

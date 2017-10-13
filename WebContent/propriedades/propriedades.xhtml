@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="../template/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+
+
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Propriedades
+								<h:commandLink action="cadastrar_propriedade"
+									value="Cadastrar Propriedade"
+									style="color: green; font-weight:bold; margin-left:70%;" />
+							</div>
+
+							<div class="card-footer small text-muted">
+
+								<p:dataTable var="prop" value="#{propriedadeBean.propriedades}">
+
+
+									<p:column headerText="Id" width="4%" style="text-align:center;">
+										<h:outputText value="#{prop.propriedadeId}" />
+									</p:column>
+									<p:column headerText="Nome">
+										<h:outputText value="#{prop.nomePropriedade}" />
+									</p:column>
+									
+									<p:column headerText="País">
+										<h:outputText value="#{prop.pais}" />
+									</p:column>
+										
+									<p:column headerText="UF" style="width:5%; text-align:center;">
+										<h:outputText value="#{prop.uf}" />
+									</p:column>
+									<p:column headerText="Localidade">
+										<h:outputText value="#{prop.localidade}" />
+									</p:column>
+									
+									<p:column headerText="Cidade">
+										<h:outputText value="#{prop.cidade}" />
+									</p:column>
+
+									<p:column style="width:3%; text-align:center;">
+										<p:rowToggler />
+									</p:column>
+									
+									
+									<p:rowExpansion>
+										<p:panelGrid columns="2" columnClasses="label,value"
+											style="width:500px;margin-left:4%;">
+
+											<h:outputText value="Nome Responsável"
+												style="font-weight:bold;" />
+											<h:outputText value="#{prop.nomeResponsavel}" />
+
+											<h:outputText value="Telefone Responsável"
+												style="font-weight:bold;" />
+											<h:outputText value="#{prop.telefoneResponsavel}" />
+
+											<h:outputText value="Nome Proprietário"
+												style="font-weight:bold;" />
+											<h:outputText value="#{prop.nomeProprietario}" />
+
+											<h:outputText value="Telefone Proprietário"
+												style="font-weight:bold;" />
+											<h:outputText value="#{prop.telefoneProprietario}" />
+
+											<h:outputText value="CPF" style="font-weight:bold;" />
+											<h:outputText value="#{prop.cpf}" />
+
+											<h:outputText value="Latitude" style="font-weight:bold;" />
+											<h:outputText value="#{prop.latitude}" />
+
+											<h:outputText value="Longitude" style="font-weight:bold;" />
+											<h:outputText value="#{prop.longitude}" />
+											
+										
+										</p:panelGrid>
+										
+										
+									</p:rowExpansion>
+									
+									
+								</p:dataTable>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="../template/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+
+
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Cadastro de Usuários
+
+							</div>
+
+							<div class="card-footer small text-muted">
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome Completo</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{usuarioBean.usuario.nomeCompleto}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-2">Nome de Usuário</label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{usuarioBean.usuario.nomeUsuario}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-sm-3" for="pwd">CPF - <span
+										style="font-weight: bold;">Senha de acesso ao sistema</span></label>
+									<div class="col-sm-10">
+										<h:inputText class="form-control"
+											value="#{usuarioBean.usuario.cpf}" />
+									</div>
+								</div>
+								<hr />
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<h:commandLink action="#{usuarioBean.salvar()}"
+											value="Confirmar" class="btn btn-default"
+											style="background-color: green; color:white; margin-right:5px" />
+										<h:commandLink action="usuarios" value="Cancelar"
+											class="btn btn-default"
+											style="background-color: red; color:white;" />
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

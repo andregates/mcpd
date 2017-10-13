@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="../template/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+
+
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Pragas
+								<h:commandLink action="cadastrar_pragas"
+									value="Cadastrar Pragas"
+									style="color: green; font-weight:bold; margin-left:75%;" />
+							</div>
+
+							<div class="card-footer small text-muted">
+
+								<p:dataTable var="prag" value="#{pragaBean.pragas}">
+
+									<p:column headerText="Id" width="5%" style="text-align:center;">
+										<h:outputText value="#{prag.pragaId}" />
+									</p:column>
+									<p:column headerText="Nome" width="25%">
+										<h:outputText value="#{prag.nome}" />
+									</p:column>
+
+									<p:column headerText="Nome Científico"
+										style="text-align:center;">
+										<h:outputText value="#{prag.nomeCientifico}" />
+									</p:column>
+									
+									<p:column headerText="Gravidade do Dano"
+										style="text-align:center;">
+										<h:outputText value="#{prag.escala1}" />
+									</p:column>
+									
+									<p:column style="width:3%">
+										<p:rowToggler />
+									</p:column>
+									<p:rowExpansion>
+										<p:panelGrid columns="2" columnClasses="label,value"
+											style="width:500px; margin-left:4%;">
+
+											<h:outputText value="Descrição" style="font-weight:bold;" />
+											<h:outputText value="#{prag.descricao}" />
+
+											<h:outputText value="Ação de Combate"
+												style="font-weight:bold;" />
+											<h:outputText value="#{prag.acaoCombate}" />
+
+										</p:panelGrid>
+									</p:rowExpansion>
+								</p:dataTable>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

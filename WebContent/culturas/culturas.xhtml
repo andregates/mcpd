@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<ui:composition template="../template/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+
+
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Culturas
+								<h:commandLink action="cadastrar_culturas"
+									value="Cadastrar Culturas"
+									style="color: green; font-weight:bold; margin-left:75%;" />
+							</div>
+
+							<div class="card-footer small text-muted">
+
+								<p:dataTable var="cult" value="#{culturaBean.culturas}">
+
+									<p:column headerText="Id" width="5%" style="text-align:center;">
+										<h:outputText value="#{cult.culturaId}" />
+									</p:column>
+									<p:column headerText="Nome" width="25%">
+										<h:outputText value="#{cult.nome}" />
+									</p:column>
+
+									<p:column headerText="Área de Plantio" width="7%"
+										style="text-align:center;">
+										<h:outputText value="#{cult.areaPlantio}" />
+									</p:column>
+
+									<p:column headerText="Período do Plantio">
+										<h:outputText value="#{cult.periodoPlantio}" />
+									</p:column>
+
+									<p:column headerText="Período da Colheita">
+										<h:outputText value="#{cult.periodoColheita}" />
+									</p:column>
+									<p:column style="width:3%">
+										<p:rowToggler title="Ver mais" />
+									</p:column>
+									<p:rowExpansion>
+										<p:panelGrid columns="2" columnClasses="label,value"
+											style="width:500px; margin-left:4%;">
+
+											<h:outputText value="Descrição" style="font-weight:bold;" />
+											<h:outputText value="#{cult.descricao}" />
+
+											<h:outputText value="Observações" style="font-weight:bold;" />
+											<h:outputText value="#{cult.obs}" />
+										</p:panelGrid>
+									</p:rowExpansion>
+								</p:dataTable>
+							</div>
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>

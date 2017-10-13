@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<title>MCPD</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="resources/vendor/bootstrap/css/bootstrap.css"
+		rel="stylesheet" />
+
+	<!-- Custom fonts for this template -->
+	<link href="resources/vendor/font-awesome/css/font-awesome.min.css"
+		rel="stylesheet" type="text/css" />
+
+	<!-- Custom styles for this template -->
+	<link href="resources/css/sb-admin.css" rel="stylesheet" />
+
+</h:head>
+
+<h:body class="bg-dark">
+	<img src="resources/img/logoPA_I.png" style="margin-left: 44%;" />
+
+	<div class="container">
+		<h5 style="text-align: center; color: green;">Monitoramento e Controle de Pragas e Danos</h5>
+		<div class="card card-login mx-auto mt-5">
+			<div class="card-header">Login</div>
+			<div class="card-body">
+				<h:form>
+					<div class="form-group">
+						<label for="exampleInputEmail1">Nome do Usuário</label>
+						<h:inputText type="email" class="form-control"
+							id="exampleInputEmail1" aria-describedby="emailHelp" />
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Senha (CPF)</label>
+						<h:inputSecret class="form-control" id="exampleInputPassword1" />
+					</div>
+
+					<h:commandLink class="btn btn-primary btn-block"
+						style="background-color:green; border-color:green;" value="Entrar"
+						action="home" />
+				</h:form>
+
+			</div>
+		</div>
+	</div>
+
+	<footer class="sticky-footer2">
+		<div class="container">
+			<div class="text-center">
+				<small>Copyright &#169; Desenvolvido por Alunos do
+					Tecnologia e Análise e Desenvolvimento de Sistemas - UFRN/EAJ</small>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="resources/vendor/jquery/jquery.min.js"></script>
+	<script src="resources/vendor/popper/popper.min.js"></script>
+	<script src="resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+</h:body>
+
+</html>

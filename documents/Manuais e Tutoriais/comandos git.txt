@@ -1,0 +1,43 @@
+git init : Inicia um repositório vazio
+
+git status : verifica o status do repositório
+
+git add nomeDoArquivo.txt : adiciona o arquivo no staging area
+
+git commit -m : dá commit pro repositório
+
+git add '*.txt' : adiciona vários arquivos de mesmo tipo
+
+git log : mostra todas as alterações commitadas
+
+git remote add origin https://github.com/try-git/try_git.git : manda o repositório local para o repositorio remoto
+
+git pull origin master : puxa as alterações que estão remotas
+
+git diff HEAD : mostra as diferenças do commit mais recente
+
+git diff --staged : para ver as mudanças que acabei de organizar
+
+git reset octofamily/octodog.txt : remove o arquivo do staged area
+
+git checkout -- nomeDoArquivo.txt : muda de volta para como era antes do ultimo commit
+
+git branch nomeDoBranch : cria um novo branch
+
+git checkout nomeDoBranch : muda para outro branch
+
+git push origin teste : manda o novo branch pro repositorio remoto
+
+git rm '*.txt' : remove todos os arquivos .txt
+
+git branch -d nomeDoBranch : deletar branch
+
+git push : manda as alterações pro repositório remoto
+
+git help algumacoisa: ajuda
+
+
+OBS:
+origin = remoto
+-u diz ao git para lembrar dos parâmetros na proxima vez
+HEAD = mais recente
