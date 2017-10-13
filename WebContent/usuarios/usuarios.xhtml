@@ -7,14 +7,15 @@
 
 <h:body>
 
-	<ui:composition template="../template/common.xhtml">
-
+	<ui:composition template="../template/common.xhtml">	
 		<ui:define name="content">
-			<h:form>
+		<p:growl id="mensagem" />
+			<h:form id="formListagem">
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
-					<h:messages style="color:blue; font-weight: bold;"/>
+						<h:messages id="userMensagem"
+							style="color:blue; font-weight: bold;" />
 
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
@@ -49,13 +50,19 @@
 									<p:column headerText="Data de inativação">
 										<h:outputText value="#{user.dataInativacao}" />
 									</p:column>
-									
+
 									<p:column headerText="Excluir">
-										<p:commandButton value="X" action="#{usuarioBean.excluir(user)}" update="userTable"/>
+										<p:commandButton value="X"
+											action="#{usuarioBean.excluir(user)}" update="userTable" />
 									</p:column>
-									
+
 									<p:column headerText="">
-										<p:commandButton value="Editar" image="ui-icon ui-icon-pencil" action="#{usuarioBean.editar(user)}" />
+										<p:commandButton value="Editar" image="ui-icon ui-icon-pencil"
+											action="#{usuarioBean.editar}"
+											update=":formCadastro:painelCadastro"
+											oncomplete="PF('dialogo').show();">
+											<f:attribute name="usuarioSelecionado" value="#{user}" />
+										</p:commandButton>
 									</p:column>
 								</p:dataTable>
 							</div>
@@ -67,8 +74,32 @@
 				</div>
 				<!-- /.content-wrapper -->
 			</h:form>
-		</ui:define>
+			<p:dialog header="Atualização de Usuário" widgetVar="dialogo"
+				draggable="false" resizable="false" modal="true" style="margin-left:30%; margin-top:10%;">
+				<h:form id="formCadastro">
+					<h:panelGrid id="painelCadastro" columns="2">
+						<p:outputLabel value="Nome completo: *" />
+						<p:inputText maxlength="50" size="50" required="true" label="Nome"
+							value="#{usuarioBean.usuario.nomeCompleto}" />
 
+						<p:outputLabel value="Nome de Usuário: *" />
+						<p:inputText maxlength="50" size="50" required="true"
+							label="Matricula" value="#{usuarioBean.usuario.nomeUsuario}" />
+
+						<p:outputLabel value="CPF:" />
+						<p:inputText maxlength="50" size="50" label="Funcao"
+							value="#{usuarioBean.usuario.cpf}" />
+
+					</h:panelGrid>
+					<h:panelGrid columns="2">
+						<p:commandButton value="Salvar" action="#{usuarioBean.salvar()}"
+							update=":mensagem :formCadastro:painelCadastro :formListagem:userTable" />
+						<p:commandButton value="Cancelar"
+							oncomplete="PF('dialogo').hide();" />
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+		</ui:define>
 	</ui:composition>
 
 </h:body>
