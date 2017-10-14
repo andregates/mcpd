@@ -7,9 +7,9 @@
 
 <h:body>
 
-	<ui:composition template="../template/common.xhtml">
-
+	<ui:composition template="../template/common.xhtml">	
 		<ui:define name="content">
+      
 			<h:form id="frm">
 				<div class="content-wrapper">
 
@@ -49,6 +49,7 @@
 										<h:outputText value="#{user.dataInativacao}" />
 									</p:column>
 
+
 									<p:column headerText="Editar" width="6%"
 										style="text-align:center">
 										<p:commandLink action="#{usuarioBean.atualizar(user)}"
@@ -64,19 +65,18 @@
 											update="frm">
 											<img src="../img/trash.png" />
 										</p:commandLink>
+
 									</p:column>
 								</p:dataTable>
 							</div>
 						</div>
-
 					</div>
 					<!-- /.container-fluid -->
-
 				</div>
 				<!-- /.content-wrapper -->
 			</h:form>
+			
 		</ui:define>
-
 	</ui:composition>
 
 </h:body>
