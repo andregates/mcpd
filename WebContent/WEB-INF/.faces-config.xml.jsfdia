@@ -10,4 +10,15 @@
     TITLE="home" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#usuarios#cadastrar_usuarios.xhtml"
+  PATH="/usuarios/cadastrar_usuarios.xhtml" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#usuarios#cadastrar_usuarios.xhtml:0"
+   NAME="item" PATH="/usuarios/cadastrar_usuarios.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="usuarios::#usuarios#usuarios.xhtml"
+    NAME="output" PATH="/usuarios/usuarios.xhtml"
+    TARGET="rules:#usuarios#usuarios.xhtml" TITLE="usuarios" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#usuarios#usuarios.xhtml"
+  PATH="/usuarios/usuarios.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

@@ -22,7 +22,7 @@ public class Usuario implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int usuarioId;
+	private Integer usuarioId;
 	
 	@Column(length=50, nullable = false)
 	private String nomeCompleto;
@@ -59,11 +59,11 @@ public class Usuario implements Serializable {
 		super();
 	}
 	
-	public int getUsuarioId() {
+	public Integer getUsuarioId() {
 		return usuarioId;
 	}
 
-	public void setUsuarioId(int usuarioId) {
+	public void setUsuarioId(Integer usuarioId) {
 		this.usuarioId = usuarioId;
 	}
 

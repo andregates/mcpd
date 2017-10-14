@@ -10,11 +10,10 @@
 	<ui:composition template="../template/common.xhtml">
 
 		<ui:define name="content">
-			<h:form>
+			<h:form id="frm">
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
-					<h:messages style="color:blue; font-weight: bold;"/>
 
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
@@ -26,7 +25,7 @@
 							</div>
 
 							<div class="card-footer small text-muted">
-
+								<p:messages />
 								<p:dataTable id="userTable" var="user"
 									value="#{usuarioBean.usuarios}">
 
@@ -49,13 +48,22 @@
 									<p:column headerText="Data de inativação">
 										<h:outputText value="#{user.dataInativacao}" />
 									</p:column>
-									
-									<p:column headerText="Excluir">
-										<p:commandButton value="X" action="#{usuarioBean.excluir(user)}" update="userTable"/>
+
+									<p:column headerText="Editar" width="6%"
+										style="text-align:center">
+										<p:commandLink action="#{usuarioBean.atualizar(user)}"
+											update="frm">
+											<img src="../img/edit.png" />
+										</p:commandLink>
+
 									</p:column>
-									
-									<p:column headerText="">
-										<p:commandButton value="Editar" image="ui-icon ui-icon-pencil" action="#{usuarioBean.editar(user)}" />
+
+									<p:column headerText="Excluir" width="7%"
+										style="text-align:center">
+										<p:commandLink action="#{usuarioBean.excluir(user)}"
+											update="frm">
+											<img src="../img/trash.png" />
+										</p:commandLink>
 									</p:column>
 								</p:dataTable>
 							</div>

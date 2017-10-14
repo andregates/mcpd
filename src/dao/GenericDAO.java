@@ -122,4 +122,20 @@ public class GenericDAO<T> {
 		}
 	}
 
+	public void update(T object) {
+		Transaction transacao = null;
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		try {
+			transacao = sessao.beginTransaction();
+			sessao.update((T) object);
+			transacao.commit();
+		} catch (Exception e) {
+			if (transacao != null) {
+				transacao.rollback();
+			}
+		} finally {
+			sessao.close();
+		}
+	}
+
 }

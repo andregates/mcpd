@@ -10,7 +10,7 @@
 	<ui:composition template="../template/common.xhtml">
 
 		<ui:define name="content">
-			<h:form>
+			<h:form id="frm">
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
@@ -50,6 +50,22 @@
 									</p:column>
 									<p:column style="width:3%">
 										<p:rowToggler title="Ver mais" />
+									</p:column>
+									<p:column headerText="Editar" width="6%"
+										style="text-align:center">
+										<p:commandLink action="#{culturaBean.atualizar(cult)}"
+											update="frm">
+											<img src="../img/edit.png" />
+										</p:commandLink>
+
+									</p:column>
+
+									<p:column headerText="Excluir" width="7%"
+										style="text-align:center">
+										<p:commandLink action="#{culturaBean.excluir(cult)}"
+											update="frm">
+											<img src="../img/trash.png" />
+										</p:commandLink>
 									</p:column>
 									<p:rowExpansion>
 										<p:panelGrid columns="2" columnClasses="label,value"
