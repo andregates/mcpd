@@ -17,7 +17,7 @@ import models.Usuario;
 import org.omnifaces.util.Messages;
 
 import dao.CulturaDAO;
-import dao.UsuarioDAO;
+import dao.CulturaDAO;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "culturaBean")
@@ -141,24 +141,16 @@ public class CulturaBean implements Serializable {
 		return "/culturas/cadastrar_culturas.xhtml?faces-redirect=true";
 	}
 
-	public void excluir(ActionEvent evento) {
-
-		try {
-			// pega o coponente do evento, pega os atributos do componente, pega pelo nome
-			// do aributo.
-			cultura = (Cultura) evento.getComponent().getAttributes().get("culturaSelecionada");
-
-			CulturaDAO culturaDAO = new CulturaDAO();
-			culturaDAO.deletar(cultura);
-
-			culturas = culturaDAO.listar();
-
-			Messages.addGlobalInfo("Cadastro removido com sucesso");
-
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao tentar remover");
-			erro.printStackTrace();
-		}
+	public void excluir(Cultura cultura) {
+		CulturaDAO culturaDao = new CulturaDAO();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		FacesMessage messagem = new FacesMessage("Cultura removido");
+		messagem.setSeverity(FacesMessage.SEVERITY_INFO);
+		fc.addMessage(null, messagem);
+		cultura.setDataInativacao(Calendar.getInstance().getTime());
+		culturaDao.update(cultura);
+		this.cultura = new Cultura();
+		this.culturas = culturaDao.listar();
 	}
 
 }
