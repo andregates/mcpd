@@ -3,6 +3,10 @@ package dao;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Criteria;
 //import org.hibernate.*;
 import org.hibernate.Session;
@@ -38,19 +42,20 @@ public class GenericDAO<T> {
 		}
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<T> listar() {
-		Session sessao = HibernateUtil.getSessionFactory().openSession();
-		try {
-			Criteria consulta = sessao.createCriteria(classe);
-			List<T> resultado = consulta.list();
-			return resultado;
-		} catch (RuntimeException erro) {
-			throw erro;
-		} finally {
-			sessao.close();
-		}
-	}
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();        
+        CriteriaQuery<T> query = builder.createQuery(classe);
+        
+        Root<T> klassRoot = query.from(classe);
+        
+        query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));        	
+        
+        List<T> result = session.createQuery(query).getResultList();
+
+        session.close();        
+        return result;	
+        }
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public T buscar(Integer id) {

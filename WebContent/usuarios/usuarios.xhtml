@@ -42,13 +42,10 @@
 										<h:outputText value="#{user.cpf}" />
 									</p:column>
 									<p:column headerText="Data de ativação">
-										<h:outputText value="#{user.dataAtivacao}" />
+										<h:outputText value="#{user.dataAtivacao}" >
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
 									</p:column>
-
-									<p:column headerText="Data de inativação">
-										<h:outputText value="#{user.dataInativacao}" />
-									</p:column>
-
 
 									<p:column headerText="Editar" width="6%"
 										style="text-align:center">

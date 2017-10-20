@@ -121,7 +121,9 @@ public class UsuarioBean {
 	public void listar() {
 		try {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			usuarios = usuarioDAO.listar();
+			
+			if(usuario.getDataInativacao() != null)
+				usuarios = usuarioDAO.listar();
 
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar");
@@ -143,7 +145,6 @@ public class UsuarioBean {
 		fc.addMessage(null, messagem);
 		usuario.setDataInativacao(Calendar.getInstance().getTime());
 		usuarioDao.update(usuario);
-		usuarios.remove(usuario);
 		this.usuario = new Usuario();
 		this.usuarios = usuarioDao.listar();
 	}

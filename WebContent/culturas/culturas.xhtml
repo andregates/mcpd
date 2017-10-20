@@ -48,6 +48,13 @@
 									<p:column headerText="Período da Colheita">
 										<h:outputText value="#{cult.periodoColheita}" />
 									</p:column>
+
+									<p:column headerText="Data de Ativação">
+										<h:outputText value="#{cult.dataAtivacao}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</p:column>
+
 									<p:column style="width:3%">
 										<p:rowToggler title="Ver mais" />
 									</p:column>
