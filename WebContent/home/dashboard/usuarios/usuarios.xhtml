@@ -7,7 +7,7 @@
 
 <h:body>
 
-	<ui:composition template="../template/common.xhtml">	
+	<ui:composition template="/home/dashboard/common.xhtml">
 		<ui:define name="content">
       
 			<h:form id="frm">
@@ -29,7 +29,7 @@
 								<p:dataTable id="userTable" var="user"
 									value="#{usuarioBean.usuarios}">
 
-									<p:column headerText="ID" width="5%">
+									<p:column headerText="ID" width="3.5%" style="text-align:center">
 										<h:outputText value="#{user.usuarioId}" />
 									</p:column>
 									<p:column headerText="Nome Completo">

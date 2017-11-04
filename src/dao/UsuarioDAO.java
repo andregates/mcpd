@@ -1,37 +1,36 @@
 package dao;
 
-import org.hibernate.Query;
+import java.util.List;
 
-import org.hibernate.Session;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import models.Usuario;
-import util.HibernateUtil;
 
-@SuppressWarnings("deprecation")
-public class UsuarioDAO  extends GenericDAO<Usuario>{
-	
-	public Usuario autenticar(String username, String cpf){
+public class UsuarioDAO extends GenericDAO<Usuario> {
+
+	public Usuario autenticar(String username, String cpf) {
+
+		// Session session = HibernateUtil.getSessionFactory().openSession();
+		Usuario usuarioLogado = new Usuario();
+		List<Usuario> usuarios = listar();
+		// boolean flag = false;
 		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Usuario usuario = null;
-		
-		try {
-			
-			Query consulta = session.createQuery("FROM Usuario u WHERE u.nomeUsuario = :username AND u.cpf = :cpf");
-			consulta.setString("nomeUsuario", username);
-			consulta.setString("cpf", cpf);
-			
-			usuario = (Usuario) consulta.uniqueResult();
-			
-		} catch (RuntimeException e) {
-			// TODO: handle exception
-			throw e;
-		} finally {
-			session.close();
+		for (Usuario usuario : usuarios) {
+			if (username.equals(usuario.getNomeUsuario()) && cpf.equals(usuario.getCpf())) {
+				usuarioLogado = usuario;
+				FacesContext context = FacesContext.getCurrentInstance();
+				ExternalContext ec = context.getExternalContext();
+				HttpSession s = (HttpSession) ec.getSession(true);
+				s.setAttribute("usuario-logado", usuario);
+				break;
+			} else {
+				usuarioLogado = null;
+			}
 		}
-		
-		return usuario;
-		
+
+		return usuarioLogado;
 	}
 
 }
