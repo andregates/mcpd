@@ -3,30 +3,31 @@
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
-  <!-- Configuração da conexão com o banco MySQL e dialeto -->
-  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
-  <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="connection.url">jdbc:mysql://localhost:3306/mcpd</property>
-  <property name="connection.username">root</property>
-  <property name="connection.password"></property>
-  <!-- <property name="connection.password">mysql123</property> Para tu ser feliz andre haha -->
-  <property name="current_session_context_class">thread</property>
-  <property name="hibernate.hbm2ddl.auto">update</property>
-  <!-- Configurações de debug -->
-  <property name="show_sql">true</property>
-  <property name="format_sql">true</property>
-  <property name="generate_statistics">true</property>
-  <property name="use_sql_comments">false</property>
-  <!-- Mapeando classes -->
-	  <mapping class="models.Cultura"/>
-	  <mapping class="models.CulturaPropriedade"/>
-	  <mapping class="models.Historico"/>
-	  <mapping class="models.Praga"/>
-	  <mapping class="models.PragaCultura"/>
-	  <mapping class="models.Propriedade"/>
-	  <mapping class="models.Registro"/>
-	  <mapping class="models.Usuario"/>
- </session-factory>
+	<session-factory name="">
+		<!-- Configuração da conexão com o banco MySQL e dialeto -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/mcpd</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+		<!-- <property name="connection.password">mysql123</property> Para tu ser 
+			feliz andre haha -->
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!-- Configurações de debug -->
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="generate_statistics">true</property>
+		<property name="use_sql_comments">false</property>
+		<!-- Mapeando classes -->
+		<mapping class="models.Cultura" />
+		<mapping class="models.CulturaPropriedade" />
+		<mapping class="models.Historico" />
+		<mapping class="models.Praga" />
+		<mapping class="models.PragaCultura" />
+		<mapping class="models.Propriedade" />
+		<mapping class="models.Registro" />
+		<mapping class="models.Usuario" />
+	</session-factory>
 </hibernate-configuration>
 

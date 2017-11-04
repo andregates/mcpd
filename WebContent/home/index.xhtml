@@ -3,7 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 
@@ -37,7 +37,8 @@
 			<div class="card-header">Login</div>
 			<div class="card-body">
 				<h:form>
-					<p:messages />
+					<p:growl id="growl" showDetail="true" sticky="true"
+						style="color:red;" />
 					<div class="form-group">
 						<label for="exampleInputEmail1">Nome do Usuário</label>
 						<h:inputText type="email" class="form-control"

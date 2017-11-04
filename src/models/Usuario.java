@@ -12,53 +12,60 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import java.util.List;
 
 @Entity
-@Table (name="usuarios")
+@Table(name = "usuarios")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -2130981906938675693L;
-	
+
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer usuarioId;
-	
-	@Column(length=50, nullable = false)
+
+	@Column(length = 50, nullable = false)
 	private String nomeCompleto;
-	
-	@Column(length=15, nullable = false)
+
+	@Column(length = 15, nullable = false)
 	private String cpf;
-	
-	@Column(length=10, nullable = false)
+
+	@Column(length = 10, nullable = false)
 	private String nomeUsuario;
-	
+
+	@Column(name = "lastAccess", unique = true)
+	@Temporal(TemporalType.DATE)
+	private Date ultimoAcesso;
+
 	@Column
 	private Date dataAtivacao;
 
 	@Column
 	private Date dataInativacao;
-	
-	/*Lista de registros feitos por cada usuario
-	 * Lazy, pois não se quer carregar tudo de uma vez
-	 * */
-	@OneToMany(mappedBy="usuario", fetch = FetchType.LAZY, orphanRemoval=true)
-	private List<Registro> registros= new ArrayList<Registro>();
 
-	public Usuario(String nomeCompleto, String cpf, String nomeUsuario, Date dataAtivacao,
-			Date dataInativacao) {
+	/*
+	 * Lista de registros feitos por cada usuario Lazy, pois não se quer carregar
+	 * tudo de uma vez
+	 */
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<Registro> registros = new ArrayList<Registro>();
+
+	public Usuario(String nomeCompleto, String cpf, String nomeUsuario, Date dataAtivacao, Date dataInativacao) {
+		super();
 		this.nomeCompleto = nomeCompleto;
 		this.cpf = cpf;
 		this.nomeUsuario = nomeUsuario;
 		this.dataAtivacao = dataAtivacao;
 		this.dataInativacao = dataInativacao;
-		//this.registros = registros;
 	}
 
 	public Usuario() {
 		super();
 	}
-	
+
 	public Integer getUsuarioId() {
 		return usuarioId;
 	}
@@ -107,7 +114,6 @@ public class Usuario implements Serializable {
 		this.dataInativacao = dataInativacao;
 	}
 
-	
 	public List<Registro> getRegistros() {
 		return registros;
 	}
@@ -119,15 +125,23 @@ public class Usuario implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	public void addRegistro(Registro registro){
+
+	public void addRegistro(Registro registro) {
 		registros.add(registro);
 		registro.setUsuario(this);
 	}
-	
-	public void removeRegistro(Registro registro){
+
+	public void removeRegistro(Registro registro) {
 		registros.remove(registro);
 		registro.setUsuario(null);
+	}
+
+	public Date getUltimoAcesso() {
+		return ultimoAcesso;
+	}
+
+	public void setUltimoAcesso(Date ultimoAcesso) {
+		this.ultimoAcesso = ultimoAcesso;
 	}
 
 	@Override
@@ -140,7 +154,8 @@ public class Usuario implements Serializable {
 		result = prime * result + ((nomeCompleto == null) ? 0 : nomeCompleto.hashCode());
 		result = prime * result + ((nomeUsuario == null) ? 0 : nomeUsuario.hashCode());
 		result = prime * result + ((registros == null) ? 0 : registros.hashCode());
-		result = prime * result + usuarioId;
+		result = prime * result + ((ultimoAcesso == null) ? 0 : ultimoAcesso.hashCode());
+		result = prime * result + ((usuarioId == null) ? 0 : usuarioId.hashCode());
 		return result;
 	}
 
@@ -183,7 +198,15 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!registros.equals(other.registros))
 			return false;
-		if (usuarioId != other.usuarioId)
+		if (ultimoAcesso == null) {
+			if (other.ultimoAcesso != null)
+				return false;
+		} else if (!ultimoAcesso.equals(other.ultimoAcesso))
+			return false;
+		if (usuarioId == null) {
+			if (other.usuarioId != null)
+				return false;
+		} else if (!usuarioId.equals(other.usuarioId))
 			return false;
 		return true;
 	}
