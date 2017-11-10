@@ -17,8 +17,8 @@ import models.Usuario;
 /**
  * Servlet Filter implementation class OurFilter
  */
-@WebFilter(urlPatterns = "/dashboard/*")
-public class OurFilter implements Filter {
+/*@WebFilter(urlPatterns = "/dashboard/*")
+*/public class OurFilter implements Filter {
 
 	/**
 	 * Default constructor.

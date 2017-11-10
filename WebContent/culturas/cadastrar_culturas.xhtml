@@ -8,38 +8,59 @@
 
 <h:body>
 
-	<ui:composition template="/home/dashboard/common.xhtml">
+	<ui:composition template="/dashboard/common.xhtml">
 
 		<ui:define name="content">
 			<h:form>
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
-
-
+						
+						<p:messages/>
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
 							<div class="card-header">
-								<i class="fa fa-table"></i> Cadastro de Pragas
+								<i class="fa fa-table"></i> Cadastro de Culturas
 
 							</div>
 
 							<div class="card-footer small text-muted">
 								<div class="form-group">
-									<label class="control-label col-sm-2">Nome</label>
+									<label class="control-label col-sm-2">Nome da Cultura</label>
 									<div class="col-sm-10">
 										<h:inputText class="form-control"
-											value="#{pragaBean.praga.nome}" />
+											value="#{culturaBean.cultura.nome}" />
 
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="control-label col-sm-2">Nome Científico</label>
-									<div class="col-sm-10">
-										<h:inputText class="form-control"
-											value="#{pragaBean.praga.nomeCientifico}" />
+									<label class="control-label col-sm-2">Área de Plantio
+										(m<sup>2</sup>)
+									</label>
 
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{culturaBean.cultura.areaPlantio}" />
+									</div>
+
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Período do
+										Plantio</label>
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{culturaBean.cultura.periodoPlantio}" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label col-sm-2">Período da
+										Colheita</label>
+									<div class="col-sm-5">
+										<h:inputText class="form-control"
+											value="#{culturaBean.cultura.periodoColheita}" />
 									</div>
 								</div>
 
@@ -47,45 +68,25 @@
 									<label class="control-label col-sm-2">Descrição</label>
 									<div class="col-sm-10">
 										<h:inputTextarea class="form-control" cols="30" rows="3"
-											value="#{pragaBean.praga.descricao}" />
-
+											value="#{culturaBean.cultura.descricao}" />
 									</div>
 								</div>
 
 								<div class="form-group">
-									<label class="control-label col-sm-2">Gravidade de Dano</label>
-									<div class="col s6">
-										<p:selectOneRadio id="pra" value="#{pragaBean.praga.escala1}"
-											style="margin-left:5%; font-size:12px; padding:50px">
-											<f:selectItem itemLabel="Muito Baixo" itemValue="Muito Baixo" />
-											<f:selectItem itemLabel="Baixo" itemValue="Baixo" />
-											<f:selectItem itemLabel="Médio" itemValue="Médio" />
-											<f:selectItem itemLabel="Alto" itemValue="Alto" />
-											<f:selectItem itemLabel="Muito Alto" itemValue="Muito Alto" />
-
-										</p:selectOneRadio>
-									</div>
-
-								</div>
-
-								<div class="form-group">
-									<label class="control-label col-sm-2">Ação de Combate</label>
+									<label class="control-label col-sm-2">Observações</label>
 									<div class="col-sm-10">
 										<h:inputTextarea class="form-control" cols="30" rows="3"
-											value="#{pragaBean.praga.acaoCombate}" />
-
+											value="#{culturaBean.cultura.obs}" />
 									</div>
 								</div>
-
-
 								<hr />
 
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">
-										<h:commandLink action="#{pragaBean.salvar()}"
+										<h:commandLink action="#{culturaBean.salvar()}"
 											value="Confirmar" class="btn btn-default"
 											style="background-color: green; color:white; margin-right:5px" />
-										<h:commandLink action="pragas" value="Cancelar"
+										<h:commandLink action="culturas" value="Cancelar"
 											class="btn btn-default"
 											style="background-color: red; color:white;" />
 
