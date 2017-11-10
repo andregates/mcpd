@@ -1,6 +1,9 @@
 package controlers;
 
 import javax.faces.bean.ManagedBean;
+
+import java.io.IOException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -27,12 +30,12 @@ public class LoginBean {
 		this.usuarioLogado = usuarioLogado;
 	}
 
-	public String autenticar() {
+	public String autenticar() throws IOException {
 
 		try {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-			usuarioLogado = usuarioDAO.autenticar(usuarioLogado.getNomeUsuario(), usuarioLogado.getCpf());
+			usuarioLogado = usuarioDAO.logar(usuarioLogado);
 
 			if (usuarioLogado == null) {
 				FacesContext.getCurrentInstance().addMessage(null,
@@ -40,7 +43,8 @@ public class LoginBean {
 				FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 				return null;
 			} else {
-				return "/home/dashboard/home.xhtml?faces-redirect=true";
+				/*FacesContext.getCurrentInstance().getExternalContext().redirect("home.xhtml");*/
+				return "/dashboard/home.xhtml?faces-redirect=true";
 			}
 
 		} catch (RuntimeException e) {
