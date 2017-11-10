@@ -49,7 +49,8 @@ public class GenericDAO<T> {
         
         Root<T> klassRoot = query.from(classe);
         
-        query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));        	
+        if(!this.classe.getName().equals("models.Propriedade"))  
+        	query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));        	
         
         List<T> result = session.createQuery(query).getResultList();
 
