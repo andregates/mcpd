@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 import dao.UsuarioDAO;
 import models.Usuario;

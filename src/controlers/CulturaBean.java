@@ -49,6 +49,7 @@ public class CulturaBean implements Serializable {
 
 	public void setSelectedPragas(List<Praga> selectedPragas) {
 		this.selectedPragas = selectedPragas;
+		System.out.println(selectedPragas.toString());
 	}
 
 	public List<PragaCultura> getPragaCultura() {
@@ -58,9 +59,9 @@ public class CulturaBean implements Serializable {
 	public void setPragaCultura(List<PragaCultura> pragaCultura) {
 		this.pragaCultura = pragaCultura;
 	}
-
-	public CulturaBean() {
-		super();
+	
+	@PostConstruct
+	public void init() {
 		allPragas = new ArrayList<Praga>();
 		PragaBean c = new PragaBean();
 		this.allPragas=c.getPragas();
@@ -138,7 +139,7 @@ public class CulturaBean implements Serializable {
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage("Cadastro realizado com sucesso!"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-
+					novo();
 					return "/culturas/culturas.xhtml?faces-redirect=true";
 				}
 			} else {
@@ -168,17 +169,7 @@ public class CulturaBean implements Serializable {
 		}
 	}
 
-	@PostConstruct // metodo construtor para chamar automaticamente o metodo quando o ManagedBean
-					// for criado
-	public void listar() {
-		try {
-			CulturaDAO culturaDAO = new CulturaDAO();
-			culturas = culturaDAO.listar();
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao listar");
-			erro.printStackTrace();
-		}
-	}
+	
 
 	public void editar(ActionEvent evento) {
 		cultura = (Cultura) evento.getComponent().getAttributes().get("culturaSelecionada");

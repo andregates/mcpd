@@ -12,7 +12,6 @@ import org.omnifaces.util.Messages;
 import dao.HistoricoDAO;
 import models.Historico;
 
-@SuppressWarnings("serial")
 @ManagedBean(name="historicoBean")
 //Os objetos so ficam "vivos" enquanto o usuario estiver na tela.
 @ViewScoped

@@ -21,7 +21,7 @@ import models.Cultura;
 import models.CulturaPropriedade;
 import models.Propriedade;
 
-@SuppressWarnings("serial")
+
 @ManagedBean(name = "propriedadeBean")
 // Os objetos s� ficam "vivos" enquanto o usu�rio estiver na tela.
 @SessionScoped
@@ -41,9 +41,7 @@ public class PropriedadeBean {
 		allCulturas = new ArrayList<Cultura>();
 		CulturaBean c = new CulturaBean();
 		this.allCulturas=c.getCulturas();
-		
 		selectedCulturas=new ArrayList<Cultura>();
-		
 			
 	}
 	
@@ -71,8 +69,6 @@ public class PropriedadeBean {
 	public void setCulturaPropriedade(List<CulturaPropriedade> culturaPropriedade) {
 		this.culturaPropriedade = culturaPropriedade;
 	}
-
-
 	
 	
 	public Propriedade getPropriedade() {
@@ -136,17 +132,6 @@ public class PropriedadeBean {
 		}
 	}
 
-	@PostConstruct // metodo construtor para chamar automaticamente o metodo quando o ManagedBean
-					// for criado
-	public void listar() {
-		try {
-			PropriedadeDAO propriedadeDAO = new PropriedadeDAO();
-			propriedades = propriedadeDAO.listar();
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao listar");
-			erro.printStackTrace();
-		}
-	}
 
 	public void editar(ActionEvent evento) {
 		propriedade = (Propriedade) evento.getComponent().getAttributes().get("propriedadeSelecionada");
