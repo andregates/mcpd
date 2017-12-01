@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name = "propriedades")
 public class Propriedade implements Serializable {
@@ -27,6 +30,7 @@ public class Propriedade implements Serializable {
 	@Column(length = 50, nullable = false)
 	private String nomePropriedade;
 
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@Column
 	private String localidade;
 

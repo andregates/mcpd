@@ -30,7 +30,7 @@ public class GenericDAO<T> {
 
 		try {
 			t = sessao.beginTransaction();
-			sessao.save(entidade);
+			sessao.saveOrUpdate(entidade);
 			t.commit();
 		} catch (RuntimeException erro) {
 			if (t != null) {

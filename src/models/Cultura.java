@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name = "culturas")
 
@@ -27,7 +30,7 @@ public class Cultura implements Serializable {
 
 	@Column(length = 50, nullable = false)
 	private String nome;
-
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@Column
 	private String descricao;
 

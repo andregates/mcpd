@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Table(name="culturas_propriedades")
 public class CulturaPropriedade implements Serializable{
@@ -21,7 +24,7 @@ public class CulturaPropriedade implements Serializable{
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int culturaPropriedadeId;
-	
+	@Cascade({CascadeType.SAVE_UPDATE})
 	@Column
 	private Date dataAssociacao;
 
