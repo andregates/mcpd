@@ -7,6 +7,7 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,8 +17,8 @@ import models.Usuario;
 /**
  * Servlet Filter implementation class OurFilter
  */
-/*@WebFilter(urlPatterns = "/dashboard/*")
-*/public class OurFilter implements Filter {
+@WebFilter("/filters/OurFilter")
+public class OurFilter implements Filter {
 
 	/**
 	 * Default constructor.
@@ -39,7 +40,8 @@ import models.Usuario;
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		Usuario u = null;
-
+		
+		
 		HttpSession session = ((HttpServletRequest) request).getSession(false);
 
 		if (session != null) {

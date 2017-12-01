@@ -58,6 +58,6 @@ public class LoginBean {
 
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "/home/index.xhtml?faces-redirect=true";
+		return "/index.xhtml?faces-redirect=true";
 	}
 }
