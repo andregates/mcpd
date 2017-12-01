@@ -33,6 +33,31 @@
 
 									</div>
 								</div>
+								
+								<h:form id="formCultura">
+								
+									<p:growl id="msg" showDetail="true" escape="false" />
+									
+									<p:dataTable id="checkboxDT" var="pragasLista" value="#{culturaBean.allPragas}" selection="#{culturaBean.selectedPragas}" rowKey="#{pragasLista.pragaId}" style="margin-left: 16px; margin-bottom:0">
+								        <f:facet name="header">
+								            Selecione as Pragas que afetam esta Cultura
+								        </f:facet>
+								        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+								        <p:column headerText="Id" style="width:20px;">
+								            <h:outputText value="#{pragasLista.pragaId}" />
+								        </p:column>
+								        <p:column headerText="Nome" style="width:230px;">
+								            <h:outputText value="#{pragasLista.nome}" />
+								        </p:column>
+								        
+								    </p:dataTable>
+									
+									<br />
+									
+									
+ 
+							</h:form>
+								
 
 								<div class="form-group">
 									<label class="control-label col-sm-2">Área de Plantio

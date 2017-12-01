@@ -8,16 +8,13 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
-import org.primefaces.model.DualListModel;
 
-import dao.CulturaDAO;
 import dao.CulturaPropriedadeDAO;
 import dao.PropriedadeDAO;
 import models.Cultura;
@@ -108,7 +105,7 @@ public class PropriedadeBean {
 		propriedade = new Propriedade();
 	}
 
-	public void salvar() {
+	public String salvar() {
 		try {
 			PropriedadeDAO propriedadeDAO = new PropriedadeDAO();
 			propriedadeDAO.salvar(propriedade);
@@ -125,12 +122,17 @@ public class PropriedadeBean {
 			}
 			
 			novo();
-
-			Messages.addGlobalInfo("Cadastro realizado com sucesso");
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Cadastro realizado com sucesso!"));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+			return "/propriedades/propriedades.xhtml?faces-redirect=true";
 
 		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao cadastrar");
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Erro ao cadastrar!"));
+			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			erro.printStackTrace();
+			return "/propriedades/propriedades.xhtml?faces-redirect=true";
 		}
 	}
 

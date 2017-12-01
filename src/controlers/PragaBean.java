@@ -12,6 +12,7 @@ import javax.faces.flow.builder.NavigationCaseBuilder.RedirectBuilder;
 
 import org.omnifaces.util.Messages;
 
+import dao.CulturaDAO;
 import dao.PragaDAO;
 import models.Praga;
 
@@ -33,6 +34,14 @@ public class PragaBean implements Serializable {
 	}
 
 	public List<Praga> getPragas() {
+		
+		try {
+			PragaDAO pragaDAO = new PragaDAO();
+			pragas = pragaDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao listar");
+			erro.printStackTrace();
+		}
 		return pragas;
 	}
 

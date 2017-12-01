@@ -41,7 +41,7 @@
 								
 									<p:growl id="msg" showDetail="true" escape="false" />
 									
-									<p:dataTable id="checkboxDT" var="culturasLista" value="#{propriedadeBean.allCulturas}" selection="#{propriedadeBean.selectedCulturas}" rowKey="#{culturasLista.culturaId}" style="margin-bottom:0">
+									<p:dataTable id="checkboxDT" var="culturasLista" value="#{propriedadeBean.allCulturas}" selection="#{propriedadeBean.selectedCulturas}" rowKey="#{culturasLista.culturaId}" style="margin-left: 16px; margin-bottom:0">
 								        <f:facet name="header">
 								            Selecione as Culturas Cultivadas na Propriedade
 								        </f:facet>
@@ -53,22 +53,11 @@
 								            <h:outputText value="#{culturasLista.nome}" />
 								        </p:column>
 								        
-								        <f:facet name="footer">
-								            <p:commandButton process="checkboxDT" update=":form:formCultura:multiCulturaDetail" icon="ui-icon-search" value="View" oncomplete="PF('multiCulturaDialog').show()" />
-								        </f:facet>
-								        
-								        
 								    </p:dataTable>
 									
 									<br />
 									
-									<p:dialog header="Seleção de Culturas" widgetVar="multiCulturaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
-							       <p:outputPanel id="multiCulturaDetail" style="text-align:center;">
-							           <ui:repeat value="#{propriedadeBean.selectedCulturas}" var="cultura">
-							               <h:outputText value="#{cultura.culturaId} - #{cultura.nome}" style="display:block"/>
-							           </ui:repeat>
-							       </p:outputPanel>
-							   </p:dialog>
+									
  
 							</h:form>
 									
