@@ -1,4 +1,5 @@
 package models;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +12,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name="pragas")
-public class Praga  implements Serializable{
+@Table(name = "pragas")
+public class Praga implements Serializable {
 
 	private static final long serialVersionUID = 559902083182981417L;
-	
+
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pragaId;
-	
-	@Column(length=50, nullable = false)
+
+	@Column(length = 50, nullable = false)
 	private String nome;
-	
-	@Column(length=50, nullable = false)
+
+	@Column(length = 50, nullable = false)
 	private String nomeCientifico;
 
 	@Column
@@ -35,39 +37,24 @@ public class Praga  implements Serializable{
 	private String acaoCombate;
 
 	@Column
-	private String escala1;
+	private String escala;
 
-	@Column
-	private String escala2;
+	@Transient
+	private List<String> listaPath;
 
-	@Column
-	private String escala3;
+	@OneToMany(mappedBy = "praga", fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<Registro> registros = new ArrayList<Registro>();
 
-	@Column
-	private String escala4;
+	@OneToMany(mappedBy = "praga", fetch = FetchType.LAZY, orphanRemoval = true)
+	private List<PragaCultura> pragaCultura = new ArrayList<PragaCultura>();
 
-	@Column
-	private String escala5;
-	
-	@OneToMany(mappedBy="praga", fetch = FetchType.LAZY, orphanRemoval=true)
-	private List<Registro> registros= new ArrayList<Registro>();
-	
-	@OneToMany(mappedBy="praga", fetch = FetchType.LAZY, orphanRemoval=true)
-	private List<PragaCultura> pragaCultura= new ArrayList<PragaCultura>();
-
-	
-	public Praga(String nome, String nomeCientifico, String descricao, String acaoCombate, String escala1,
-			String escala2, String escala3, String escala4, String escala5, List<Registro> registros,
-			List<PragaCultura> pragaCultura) {
+	public Praga(String nome, String nomeCientifico, String descricao, String acaoCombate, String escala,
+			List<Registro> registros, List<PragaCultura> pragaCultura) {
 		this.nome = nome;
 		this.nomeCientifico = nomeCientifico;
 		this.descricao = descricao;
 		this.acaoCombate = acaoCombate;
-		this.escala1 = escala1;
-		this.escala2 = escala2;
-		this.escala3 = escala3;
-		this.escala4 = escala4;
-		this.escala5 = escala5;
+		this.escala = escala;
 		this.registros = registros;
 		this.pragaCultura = pragaCultura;
 	}
@@ -83,7 +70,7 @@ public class Praga  implements Serializable{
 	public void setPragaId(int pragaId) {
 		this.pragaId = pragaId;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -116,44 +103,8 @@ public class Praga  implements Serializable{
 		this.acaoCombate = acaoCombate;
 	}
 
-	public String getEscala1() {
-		return escala1;
-	}
-
-	public void setEscala1(String escala1) {
-		this.escala1 = escala1;
-	}
-
-	public String getEscala2() {
-		return escala2;
-	}
-
-	public void setEscala2(String escala2) {
-		this.escala2 = escala2;
-	}
-
-	public String getEscala3() {
-		return escala3;
-	}
-
-	public void setEscala3(String escala3) {
-		this.escala3 = escala3;
-	}
-
-	public String getEscala4() {
-		return escala4;
-	}
-
-	public void setEscala4(String escala4) {
-		this.escala4 = escala4;
-	}
-
-	public String getEscala5() {
-		return escala5;
-	}
-
-	public void setEscala5(String escala5) {
-		this.escala5 = escala5;
+	public String getEscala() {
+		return escala;
 	}
 
 	public List<Registro> getRegistros() {
@@ -176,17 +127,25 @@ public class Praga  implements Serializable{
 		return serialVersionUID;
 	}
 
+	public void setEscala(String escala) {
+		this.escala = escala;
+	}
+
+	public List<String> getListaPath() {
+		return listaPath;
+	}
+
+	public void setListaPath(List<String> listaPath) {
+		this.listaPath = listaPath;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((acaoCombate == null) ? 0 : acaoCombate.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((escala1 == null) ? 0 : escala1.hashCode());
-		result = prime * result + ((escala2 == null) ? 0 : escala2.hashCode());
-		result = prime * result + ((escala3 == null) ? 0 : escala3.hashCode());
-		result = prime * result + ((escala4 == null) ? 0 : escala4.hashCode());
-		result = prime * result + ((escala5 == null) ? 0 : escala5.hashCode());
+		result = prime * result + ((escala == null) ? 0 : escala.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((nomeCientifico == null) ? 0 : nomeCientifico.hashCode());
 		result = prime * result + ((pragaCultura == null) ? 0 : pragaCultura.hashCode());
@@ -214,30 +173,10 @@ public class Praga  implements Serializable{
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (escala1 == null) {
-			if (other.escala1 != null)
+		if (escala == null) {
+			if (other.escala != null)
 				return false;
-		} else if (!escala1.equals(other.escala1))
-			return false;
-		if (escala2 == null) {
-			if (other.escala2 != null)
-				return false;
-		} else if (!escala2.equals(other.escala2))
-			return false;
-		if (escala3 == null) {
-			if (other.escala3 != null)
-				return false;
-		} else if (!escala3.equals(other.escala3))
-			return false;
-		if (escala4 == null) {
-			if (other.escala4 != null)
-				return false;
-		} else if (!escala4.equals(other.escala4))
-			return false;
-		if (escala5 == null) {
-			if (other.escala5 != null)
-				return false;
-		} else if (!escala5.equals(other.escala5))
+		} else if (!escala.equals(other.escala))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
@@ -263,7 +202,5 @@ public class Praga  implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 
 }

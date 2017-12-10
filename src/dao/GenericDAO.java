@@ -43,20 +43,22 @@ public class GenericDAO<T> {
 	}
 
 	public List<T> listar() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();        
-        CriteriaQuery<T> query = builder.createQuery(classe);
-        
-        Root<T> klassRoot = query.from(classe);
-        
-        if(this.classe.getName().equals("models.CulturaPropriedade") || this.classe.getName().equals("models.PragaCultura")  )  {
-        	query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));        	
-        }
-        List<T> result = session.createQuery(query).getResultList();
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<T> query = builder.createQuery(classe);
 
-        session.close();        
-        return result;	
-        }
+		Root<T> klassRoot = query.from(classe);
+
+		if (this.classe.getName().equals("models.CulturaPropriedade")
+				|| this.classe.getName().equals("models.PragaCultura")
+				|| this.classe.getName().equals("models.Usuario")) {
+			query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));
+		}
+		List<T> result = session.createQuery(query).getResultList();
+
+		session.close();
+		return result;
+	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public T buscar(Integer id) {

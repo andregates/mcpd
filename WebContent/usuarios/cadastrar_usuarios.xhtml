@@ -14,7 +14,7 @@
 
 					<div class="container-fluid">
 
-						<p:messages />
+						<p:messages closable="true"/>
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
 							<div class="card-header">
@@ -42,7 +42,8 @@
 										style="font-weight: bold;">Senha de acesso ao sistema</span></label>
 									<div class="col-sm-10">
 										<h:inputText class="form-control"
-											value="#{usuarioBean.usuario.cpf}" />
+											value="#{usuarioBean.usuario.cpf}"
+											onkeyup="somenteNumeros(this);"  maxlength="11"/>
 									</div>
 								</div>
 								<hr />
@@ -67,6 +68,18 @@
 				</div>
 				<!-- /.content-wrapper -->
 			</h:form>
+
+			<script>
+				function somenteNumeros(num) {
+					var er = /[^0-9.]/;
+					er.lastIndex = 0;
+					var campo = num;
+					if (er.test(campo.value)) {
+						campo.value = "";
+					} 
+				}
+			</script>
+
 		</ui:define>
 
 	</ui:composition>

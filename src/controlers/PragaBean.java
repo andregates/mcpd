@@ -1,70 +1,108 @@
 package controlers;
 
+import java.io.IOException;
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.Part;
 
 import org.omnifaces.util.Messages;
 
-
 import dao.PragaDAO;
+import dao.UsuarioDAO;
 import models.Praga;
+import models.Usuario;
+import util.Upload;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "pragaBean")
 // Os objetos sï¿½ ficam "vivos" enquanto o usuï¿½rio estiver na tela.
-@ViewScoped
+@SessionScoped
 public class PragaBean implements Serializable {
 
-	private Praga praga = new Praga();
+	private Praga praga;
 	private List<Praga> pragas;
 
-	public Praga getPraga() {
-		return praga;
-	}
+	/**
+	 * Lista de caminhos das imagens
+	 */
+	private List<String> paths;
+	private List<Part> partList;
+	private Part uploadedPhoto;
 
-	public void setPraga(Praga praga) {
-		this.praga = praga;
-	}
-
-	public List<Praga> getPragas() {
-		
-		try {
-			PragaDAO pragaDAO = new PragaDAO();
-			pragas = pragaDAO.listar();
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao listar");
-			erro.printStackTrace();
-		}
-		return pragas;
-	}
-
-	public void setPragas(List<Praga> pragas) {
-		this.pragas = pragas;
-	}
-
-	// Mï¿½todo para limpar o campo.
-	// Chamar lï¿½ na view, quando o usuï¿½rio clicar no botï¿½o.
+	/**
+	 * Metodo para limpar o campo. Chamar lista na view, quando o usuario clicar no
+	 * botão.
+	 */
 	public void novo() {
 		praga = new Praga();
 	}
 
-	public String salvar() {
+	public PragaBean() {
+		this.praga = new Praga();
+		this.pragas = new ArrayList<>();
+		this.paths = new ArrayList<>();
+		this.partList = new ArrayList<>();
+	}
+
+	public boolean valida() {
+		if (praga.getAcaoCombate().isEmpty() || praga.getDescricao().isEmpty() || praga.getEscala().isEmpty()
+				|| praga.getNome().isEmpty() || praga.getNomeCientifico().isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public String salvar() throws IOException {
 		try {
 			PragaDAO pragaDAO = new PragaDAO();
-			pragaDAO.salvar(praga);
 
-			novo();
+			if (praga.getPragaId() == 0) {
 
-			Messages.addGlobalInfo("Cadastro realizado com sucesso");
+				if (valida()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+					return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+				} else {
+					praga.setListaPath(paths);
+					pragaDAO.salvar(praga);
 
-			return "/pragas_e_danos/pragas.xhtml?faces-redirect=true";
-			
+					novo();
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("Cadastro realizado com sucesso!"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+
+					return "/pragas_e_danos/pragas.xhtml?faces-redirect=true";
+
+				}
+
+			} else {
+				if (valida()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+					return "/pragas_e_danos/cadastrar_usuarios.xhtml?faces-redirect=true";
+				} else {
+					pragaDAO.update(this.praga);
+					novo();
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("Edição realizada com sucesso!"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+
+					return "/pragas_e_danos/pragas.xhtml?faces-redirect=true";
+				}
+			}
+
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao cadastrar");
 			erro.printStackTrace();
@@ -73,12 +111,19 @@ public class PragaBean implements Serializable {
 
 		}
 
-		
-
 	}
 
-	@PostConstruct // mï¿½todo construtor para chamar automaticamente o metodo quando o ManagedBean
-					// for criado
+	public String atualizar(Praga praga) {
+		praga.getPragaId();
+		this.praga = praga;
+		return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+	}
+
+	/**
+	 * Metodo construtor para chamar automaticamente o metodo quando o ManagedBean
+	 * for criado
+	 */
+	@PostConstruct
 	public void listar() {
 		try {
 			PragaDAO pragaDAO = new PragaDAO();
@@ -94,23 +139,89 @@ public class PragaBean implements Serializable {
 
 	}
 
-	public void excluir(ActionEvent evento) {
+	public void excluir(Praga praga) {
 
+		PragaDAO pragaDao = new PragaDAO();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		FacesMessage messagem = new FacesMessage("Praga removida");
+		messagem.setSeverity(FacesMessage.SEVERITY_INFO);
+		fc.addMessage(null, messagem);
+		pragaDao.deletar(praga);
+		novo();
+		this.pragas = pragaDao.listar();
+	}
+
+	public void uploadDef() {
 		try {
-			// pega o coponente do evento, pega os atributos do componente, pega pelo nome
-			// do aributo.
-			praga = (Praga) evento.getComponent().getAttributes().get("pragaSelecionada");
 
-			PragaDAO pragaDAO = new PragaDAO();
-			pragaDAO.deletar(praga);
+			Upload upload = Upload.getInstance();
+			praga.setListaPath(upload.write(uploadedPhoto, paths));
 
-			pragas = pragaDAO.listar();
-
-			Messages.addGlobalInfo("Cadastro removido com sucesso");
-
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao tentar remover");
-			erro.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
+
+	public List<Part> uploadImagem() {
+		// List<String> imagensTemp = new ArrayList<>();
+		Upload upload = Upload.getInstance();
+		if (uploadedPhoto == null)
+			Messages.addGlobalInfo("Você não selecionou nenhuma imagem.");
+		else if (paths.size() < 5) {
+			partList.add(uploadedPhoto);
+			paths.add(upload.extractFileName(uploadedPhoto));
+		} else
+			Messages.addGlobalInfo("Somente é permitido o anexo de cinco imagens");
+
+		return partList;
+	}
+
+	public Praga getPraga() {
+		return praga;
+	}
+
+	public void setPraga(Praga praga) {
+		this.praga = praga;
+	}
+
+	public List<Praga> getPragas() {
+
+		try {
+			PragaDAO pragaDAO = new PragaDAO();
+			pragas = pragaDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao listar");
+			erro.printStackTrace();
+		}
+		return pragas;
+	}
+
+	public List<String> getPaths() {
+		return paths;
+	}
+
+	public void setPaths(List<String> paths) {
+		this.paths = paths;
+	}
+
+	public Part getUploadedPhoto() {
+		return uploadedPhoto;
+	}
+
+	public void setUploadedPhoto(Part uploadedPhoto) {
+		this.uploadedPhoto = uploadedPhoto;
+	}
+
+	public void setPragas(List<Praga> pragas) {
+		this.pragas = pragas;
+	}
+
+	public List<Part> getPartList() {
+		return partList;
+	}
+
+	public void setPartList(List<Part> partList) {
+		this.partList = partList;
+	}
+
 }

@@ -56,7 +56,8 @@ public class UsuarioBean {
 	}
 
 	public boolean valida() {
-		if (usuario.getNomeUsuario().isEmpty() || usuario.getNomeCompleto().isEmpty() || usuario.getCpf().isEmpty()) {
+		if (usuario.getNomeUsuario().isEmpty() || usuario.getNomeCompleto().isEmpty() || usuario.getCpf().isEmpty()
+				|| usuario.getCpf().length() > 11) {
 			return true;
 		} else {
 			return false;
@@ -74,8 +75,8 @@ public class UsuarioBean {
 			if (usuario.getUsuarioId() == null) {
 
 				if (valida() == true) {
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/usuarios/cadastrar_usuarios.xhtml?faces-redirect=true";
 				} else {
@@ -92,8 +93,8 @@ public class UsuarioBean {
 			} else {
 
 				if (valida() == true) {
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção! Preencha todos os campos", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/usuarios/cadastrar_usuarios.xhtml?faces-redirect=true";
 				} else {
@@ -121,8 +122,8 @@ public class UsuarioBean {
 	public void listar() {
 		try {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			
-			if(usuario.getDataInativacao() != null)
+
+			if (usuario.getDataInativacao() != null)
 				usuarios = usuarioDAO.listar();
 
 		} catch (RuntimeException erro) {
