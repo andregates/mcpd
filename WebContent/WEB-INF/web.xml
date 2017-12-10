@@ -17,4 +17,9 @@
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
 	</listener>
+
+	<mime-mapping>
+		<extension>xhtml</extension>
+		<mime-type>application/xml</mime-type>
+	</mime-mapping>
 </web-app>
