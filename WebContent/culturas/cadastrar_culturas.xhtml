@@ -15,8 +15,8 @@
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
-						
-						<p:messages/>
+
+						<p:messages />
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
 							<div class="card-header">
@@ -33,31 +33,39 @@
 
 									</div>
 								</div>
-								
-								<h:form id="formPraga">
-								
-									<p:growl id="msg" showDetail="true" escape="false" />
-									
-									<p:dataTable id="checkboxDT" var="pragasLista" value="#{culturaBean.allPragas}" selection="#{culturaBean.selectedPragas}" rowKey="#{pragasLista.pragaId}" style="margin-left: 16px; margin-bottom:0">
-								        <f:facet name="header">
-								            Selecione as Pragas que afetam esta Cultura
-								        </f:facet>
-								        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-								        <p:column headerText="Id" style="width:20px;">
-								            <h:outputText value="#{pragasLista.pragaId}" />
-								        </p:column>
-								        <p:column headerText="Nome" style="width:230px;">
-								            <h:outputText value="#{pragasLista.nome}" />
-								        </p:column>
-								        
-								    </p:dataTable>
-									
-									<br />
-									
-									
- 
-							</h:form>
-								
+								<div class="form-group">
+									<label class="control-label col-sm-7"> 
+										Selecione as Pragas que afetam esta Cultura 
+									</label>
+									<h:form id="formPraga">
+
+										<p:growl id="msg" showDetail="true" escape="false" />
+
+										<p:dataTable id="checkboxDT" var="pragasLista"
+											value="#{culturaBean.allPragas}"
+											selection="#{culturaBean.selectedPragas}"
+											rowKey="#{pragasLista.pragaId}"
+											style="margin-left: 16px; margin-bottom:0"
+											styleClass="table">
+
+											<p:column selectionMode="multiple"
+												style="width:16px;text-align:center" />
+											<p:column headerText="Id" style="width:20px;">
+												<h:outputText value="#{pragasLista.pragaId}" />
+											</p:column>
+											<p:column headerText="Nome" style="width:230px;">
+												<h:outputText value="#{pragasLista.nome}" />
+											</p:column>
+
+										</p:dataTable>
+
+										<br />
+
+
+
+									</h:form>
+								</div>
+
 
 								<div class="form-group">
 									<label class="control-label col-sm-2">Área de Plantio
@@ -66,7 +74,8 @@
 
 									<div class="col-sm-5">
 										<h:inputText class="form-control"
-											value="#{culturaBean.cultura.areaPlantio}" />
+											value="#{culturaBean.cultura.areaPlantio}"
+											onkeyup="somenteNumeros(this);" />
 									</div>
 
 								</div>
@@ -126,6 +135,17 @@
 				</div>
 				<!-- /.content-wrapper -->
 			</h:form>
+
+			<script>
+				function somenteNumeros(num) {
+					var er = /[^0-9.]/;
+					er.lastIndex = 0;
+					var campo = num;
+					if (er.test(campo.value)) {
+						campo.value = "";
+					}
+				}
+			</script>
 		</ui:define>
 
 	</ui:composition>

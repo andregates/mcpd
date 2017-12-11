@@ -48,8 +48,8 @@
 			<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
 				<li class="nav-item active" data-toggle="tooltip"
 					data-placement="right" title="Dashboard"><a class="nav-link"
-					href="#"> <i class="fa fa-fw fa-home"></i> <span
-						class="nav-link-text"> Home</span>
+					href="#"> <i class="fa fa-fw fa-user"></i> Usuário: <h:outputText
+							value="#{loginBean.usuarioLogado.nomeCompleto}"></h:outputText>
 				</a></li>
 
 				<li class="nav-item" data-toggle="tooltip" data-placement="right"
@@ -96,21 +96,21 @@
 							Mapas</span>
 				</a></li>
 			</ul>
-			<ul class="navbar-nav sidenav-toggler">
+			<!-- <ul class="navbar-nav sidenav-toggler">
 				<li class="nav-item"><a class="nav-link text-center"
 					id="sidenavToggler"> <i class="fa fa-fw fa-angle-left"></i>
 				</a></li>
-			</ul>
+			</ul> -->
 
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item"><a class="nav-link" data-toggle="modal"
-					data-target="#exampleModal"> <i class="fa fa-fw fa-user"></i>
-						Usuário: <h:outputText value="#{loginBean.usuarioLogado.nomeCompleto}"></h:outputText>
-				</a></li>
-				
+					data-target="#exampleModal"> 
 
-				<li class="nav-item"><i class="fa fa-fw fa-sign-out"></i> <h:commandLink
-						value="Sair" action="#{loginBean.logout}" /></li>
+				</a></li>
+
+
+				<li class="nav-item"><i class="fa fa-fw fa-sign-out" style="color: white;"></i> <h:commandLink
+						value="Sair" action="#{loginBean.logout}" style="color:white;"/></li>
 			</ul>
 		</div>
 		</nav>

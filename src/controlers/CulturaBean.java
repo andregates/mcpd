@@ -28,12 +28,15 @@ public class CulturaBean implements Serializable {
 
 	private Cultura cultura = new Cultura();
 	private List<Cultura> culturas;
-	
+
 	private List<Praga> allPragas = new ArrayList<>();
 	private List<Praga> selectedPragas = new ArrayList<>();
 	private List<PragaCultura> pragaCultura = new ArrayList<PragaCultura>();
-	
-	
+
+	public String moveToCulturasCadastro() {
+		this.cultura = new Cultura();
+		return "/culturas/cadastrar_culturas.xhtml?faces-redirect=true";
+	}
 
 	public List<Praga> getAllPragas() {
 		return allPragas;
@@ -59,13 +62,13 @@ public class CulturaBean implements Serializable {
 	public void setPragaCultura(List<PragaCultura> pragaCultura) {
 		this.pragaCultura = pragaCultura;
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		allPragas = new ArrayList<Praga>();
 		PragaBean c = new PragaBean();
-		this.allPragas=c.getPragas();
-		selectedPragas=new ArrayList<Praga>();
+		this.allPragas = c.getPragas();
+		selectedPragas = new ArrayList<Praga>();
 	}
 
 	public Cultura getCultura() {
@@ -99,8 +102,8 @@ public class CulturaBean implements Serializable {
 	}
 
 	public boolean valida() {
-		if (cultura.getNome().isEmpty() || cultura.getAreaPlantio().isEmpty() || cultura.getDescricao().isEmpty() || cultura.getPeriodoPlantio().isEmpty()
-				|| cultura.getObs().isEmpty()) {
+		if (cultura.getNome().isEmpty() || cultura.getAreaPlantio().isEmpty() || cultura.getDescricao().isEmpty()
+				|| cultura.getPeriodoPlantio().isEmpty() || cultura.getObs().isEmpty()) {
 			return true;
 		} else {
 			return false;
@@ -123,19 +126,20 @@ public class CulturaBean implements Serializable {
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/culturas/cadastrar_culturas.xhtml?faces-redirect=true";
 				} else {
+					cultura.setDataAtivacao(new Date());
 					culturaDAO.salvar(this.cultura);
-					
-					for(Praga c:selectedPragas){
-						
+
+					for (Praga c : selectedPragas) {
+
 						PragaCultura pc = new PragaCultura();
 						PragaCulturaDAO cpDAO = new PragaCulturaDAO();
 						pc.setDataAssociacao(new Date());
 						pc.setCultura(cultura);
 						pc.setPraga(c);
 						cpDAO.salvar(pc);
-					  			
+
 					}
-					
+
 					FacesContext.getCurrentInstance().addMessage(null,
 							new FacesMessage("Cadastro realizado com sucesso!"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
@@ -145,8 +149,8 @@ public class CulturaBean implements Serializable {
 			} else {
 
 				if (valida() == true) {
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção! Preencha todos os campos", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/culturas/cadastrar_culturas.xhtml?faces-redirect=true";
 				} else {
@@ -169,13 +173,11 @@ public class CulturaBean implements Serializable {
 		}
 	}
 
-	
-
 	public void editar(ActionEvent evento) {
 		cultura = (Cultura) evento.getComponent().getAttributes().get("culturaSelecionada");
 
 	}
-	
+
 	public String atualizar(Cultura cultura) {
 		cultura.getCulturaId();
 		this.cultura = cultura;
@@ -185,7 +187,7 @@ public class CulturaBean implements Serializable {
 	public void excluir(Cultura cultura) {
 		CulturaDAO culturaDao = new CulturaDAO();
 		FacesContext fc = FacesContext.getCurrentInstance();
-		FacesMessage messagem = new FacesMessage("Cultura removido");
+		FacesMessage messagem = new FacesMessage("Cultura removida");
 		messagem.setSeverity(FacesMessage.SEVERITY_INFO);
 		fc.addMessage(null, messagem);
 		cultura.setDataInativacao(Calendar.getInstance().getTime());

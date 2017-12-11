@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15103209174110" configfile="/mcpd/WebContent/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15103209174110" configfile="/mcpd/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="122" y="178" id="pf15129461613820" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf15129461613821" path="index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="template/home.xhtml" x="338" y="178" id="pf15129461613822" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15129461613821" path="/template/home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="usuarios/cadastrar_usuarios.xhtml" x="122" y="562" id="pf15129461613823" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" outlinks="pf15129461613824" inlinks="pf15129461613825" path="/usuarios/cadastrar_usuarios.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="usuarios/usuarios.xhtml" x="338" y="562" id="pf15129461613826" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf15129461613825" inlinks="pf15129461613824" path="/usuarios/usuarios.xhtml"/>
+  <links id="pf15129461613821" target="pf15129461613822" source="pf15129461613820" outcome="home" redirect="true"/>
+  <links id="pf15129461613824" target="pf15129461613826" source="pf15129461613823" outcome="usuarios" redirect="true"/>
+  <links id="pf15129461613825" target="pf15129461613823" source="pf15129461613826" outcome="usuarios_cadastrar" redirect="true"/>
+</pageflow:Pageflow>

@@ -10,7 +10,7 @@
 	<ui:composition template="/dashboard/common.xhtml">
 
 		<ui:define name="content">
-			<h:form>
+			<h:form id="form">
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
@@ -20,13 +20,13 @@
 						<div class="card mb-3">
 							<div class="card-header">
 								<i class="fa fa-table"></i> Propriedades
-								<h:commandLink action="cadastrar_propriedade"
+								<h:commandLink action="#{propriedadeBean.moveToCadastroPropriedade}"
 									value="Cadastrar Propriedade"
 									style="color: green; font-weight:bold; margin-left:70%;" />
 							</div>
 
 							<div class="card-footer small text-muted">
-								<p:messages closable="true"  />
+								<p:messages closable="true" />
 								<p:dataTable var="prop" value="#{propriedadeBean.propriedades}">
 
 
@@ -36,18 +36,18 @@
 									<p:column headerText="Nome">
 										<h:outputText value="#{prop.nomePropriedade}" />
 									</p:column>
-									
+
 									<p:column headerText="País">
 										<h:outputText value="#{prop.pais}" />
 									</p:column>
-										
+
 									<p:column headerText="UF" style="width:5%; text-align:center;">
 										<h:outputText value="#{prop.uf}" />
 									</p:column>
 									<p:column headerText="Localidade">
 										<h:outputText value="#{prop.localidade}" />
 									</p:column>
-									
+
 									<p:column headerText="Cidade">
 										<h:outputText value="#{prop.cidade}" />
 									</p:column>
@@ -55,8 +55,8 @@
 									<p:column style="width:3%; text-align:center;">
 										<p:rowToggler />
 									</p:column>
-									
-									
+
+
 									<p:rowExpansion>
 										<p:panelGrid columns="2" columnClasses="label,value"
 											style="width:500px;margin-left:4%;">
@@ -80,19 +80,41 @@
 											<h:outputText value="CPF" style="font-weight:bold;" />
 											<h:outputText value="#{prop.cpf}" />
 
+											<h:outputText value="Área" style="font-weight:bold;" />
+											<h:outputText value="#{prop.area}" />
+
+
 											<h:outputText value="Latitude" style="font-weight:bold;" />
 											<h:outputText value="#{prop.latitude}" />
 
 											<h:outputText value="Longitude" style="font-weight:bold;" />
 											<h:outputText value="#{prop.longitude}" />
-											
-										
+
+
 										</p:panelGrid>
-										
-										
+
+
 									</p:rowExpansion>
-									
-									
+
+									<p:column headerText="Editar" width="6%"
+										style="text-align:center">
+										<p:commandLink action="#{propriedadeBean.atualizar(prop)}"
+											update="form">
+											<img src="../img/edit.png" />
+										</p:commandLink>
+
+									</p:column>
+
+									<p:column headerText="Excluir" width="7%"
+										style="text-align:center">
+										<p:commandLink action="#{propriedadeBean.excluir(prop)}"
+											update="form">
+											<img src="../img/trash.png" />
+										</p:commandLink>
+
+									</p:column>
+
+
 								</p:dataTable>
 							</div>
 						</div>
@@ -106,6 +128,6 @@
 		</ui:define>
 
 	</ui:composition>
-	
+
 </h:body>
 </html>
