@@ -22,4 +22,13 @@
 		</navigation-case>
 	</navigation-rule>
 
+
+	<navigation-rule>
+		<from-view-id>/usuarios/usuarios.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>usuarios_cadastrar</from-outcome>
+			<to-view-id>/usuarios/cadastrar_usuarios.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

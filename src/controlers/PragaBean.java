@@ -45,6 +45,11 @@ public class PragaBean implements Serializable {
 	public void novo() {
 		praga = new Praga();
 	}
+	
+	public String moveToCadastraPraga() {
+		novo();
+		return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+	}
 
 	public PragaBean() {
 		this.praga = new Praga();
@@ -132,11 +137,6 @@ public class PragaBean implements Serializable {
 			Messages.addGlobalError("Erro ao listar");
 			erro.printStackTrace();
 		}
-	}
-
-	public void editar(ActionEvent evento) {
-		praga = (Praga) evento.getComponent().getAttributes().get("pragaSelecionada");
-
 	}
 
 	public void excluir(Praga praga) {

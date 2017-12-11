@@ -20,36 +20,36 @@
 						<div class="card mb-3">
 							<div class="card-header">
 								<i class="fa fa-table"></i> Culturas
-								<h:commandLink action="cadastrar_culturas"
+								<h:commandLink action="#{culturaBean.moveToCulturasCadastro}"
 									value="Cadastrar Culturas"
 									style="color: green; font-weight:bold; margin-left:75%;" />
 							</div>
 
 							<div class="card-footer small text-muted">
-
+								<p:messages closable="true"/>
 								<p:dataTable var="cult" value="#{culturaBean.culturas}">
 
 									<p:column headerText="Id" width="5%" style="text-align:center;">
 										<h:outputText value="#{cult.culturaId}" />
 									</p:column>
-									<p:column headerText="Nome" width="25%">
+									<p:column headerText="Nome" width="25%" style="text-align:center">
 										<h:outputText value="#{cult.nome}" />
 									</p:column>
 
-									<p:column headerText="Área de Plantio" width="7%"
+									<p:column headerText="Área de Plantio" width="10%"
 										style="text-align:center;">
-										<h:outputText value="#{cult.areaPlantio}" />
+										<h:outputText value="#{cult.areaPlantio} m²" />
 									</p:column>
 
-									<p:column headerText="Período do Plantio">
+									<p:column headerText="Período do Plantio" style="text-align:center">
 										<h:outputText value="#{cult.periodoPlantio}" />
 									</p:column>
 
-									<p:column headerText="Período da Colheita">
+									<p:column headerText="Período da Colheita" style="text-align:center">
 										<h:outputText value="#{cult.periodoColheita}" />
 									</p:column>
 
-									<p:column headerText="Data de Ativação">
+									<p:column headerText="Data de Ativação" style="text-align:center">
 										<h:outputText value="#{cult.dataAtivacao}">
 											<f:convertDateTime pattern="dd/MM/yyyy" />
 										</h:outputText>

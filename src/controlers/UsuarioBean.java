@@ -1,5 +1,6 @@
 package controlers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,11 @@ public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
 	private List<Usuario> usuarios;
+
+	public UsuarioBean() {
+		this.usuario = new Usuario();
+		this.usuarios = new ArrayList<Usuario>();
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -53,6 +59,11 @@ public class UsuarioBean {
 	// Chamar l� na view, quando o usu�rio clicar no bot�o.
 	public void novo() {
 		usuario = new Usuario();
+	}
+	
+	public String moveToCadastroUser() {
+		novo();
+		return "/usuarios/cadastrar_usuarios.xhtml?faces-redirect=true";
 	}
 
 	public boolean valida() {

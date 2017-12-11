@@ -17,10 +17,11 @@ import org.primefaces.event.UnselectEvent;
 
 import dao.CulturaPropriedadeDAO;
 import dao.PropriedadeDAO;
+import dao.PropriedadeDAO;
 import models.Cultura;
 import models.CulturaPropriedade;
+import models.Praga;
 import models.Propriedade;
-
 
 @ManagedBean(name = "propriedadeBean")
 // Os objetos sï¿½ ficam "vivos" enquanto o usuï¿½rio estiver na tela.
@@ -28,23 +29,29 @@ import models.Propriedade;
 public class PropriedadeBean {
 
 	private Propriedade propriedade = new Propriedade();
-	
+
 	private List<Propriedade> propriedades;
-	
+
 	private List<Cultura> allCulturas = new ArrayList<>();
 	private List<Cultura> selectedCulturas = new ArrayList<>();
 	private List<CulturaPropriedade> culturaPropriedade = new ArrayList<CulturaPropriedade>();
-	
+
 	@PostConstruct
-	public void init(){
-	
+	public void init() {
+
 		allCulturas = new ArrayList<Cultura>();
 		CulturaBean c = new CulturaBean();
-		this.allCulturas=c.getCulturas();
-		selectedCulturas=new ArrayList<Cultura>();
-			
+		this.allCulturas = c.getCulturas();
+		selectedCulturas = new ArrayList<Cultura>();
+
 	}
-	
+
+	public String moveToCadastroPropriedade() {
+		init();
+		propriedade = new Propriedade(); 
+		return "/propriedades/cadastrar_propriedade.xhtml?faces-redirect=true";
+	}
+
 	public List<Cultura> getAllCulturas() {
 		return allCulturas;
 	}
@@ -69,8 +76,7 @@ public class PropriedadeBean {
 	public void setCulturaPropriedade(List<CulturaPropriedade> culturaPropriedade) {
 		this.culturaPropriedade = culturaPropriedade;
 	}
-	
-	
+
 	public Propriedade getPropriedade() {
 		return propriedade;
 	}
@@ -79,7 +85,6 @@ public class PropriedadeBean {
 		this.propriedade = propriedade;
 	}
 
-	
 	public List<Propriedade> getPropriedades() {
 		try {
 			PropriedadeDAO propriedadeDAO = new PropriedadeDAO();
@@ -101,74 +106,103 @@ public class PropriedadeBean {
 		propriedade = new Propriedade();
 	}
 
+	public boolean valida() {
+		if (propriedade.getArea() == null || propriedade.getCidade().isEmpty() || propriedade.getCpf().isEmpty()
+				|| propriedade.getLatitude() == null || propriedade.getLongitude() == null
+				|| propriedade.getNomePropriedade().isEmpty() || propriedade.getNomeProprietario().isEmpty()
+				|| propriedade.getNomeResponsavel().isEmpty() || propriedade.getPais().isEmpty()
+				|| propriedade.getTelefoneProprietario().isEmpty() || propriedade.getTelefoneResponsavel().isEmpty()
+				|| propriedade.getUf().isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public String salvar() {
 		try {
 			PropriedadeDAO propriedadeDAO = new PropriedadeDAO();
-			propriedadeDAO.salvar(propriedade);
-			
-			for(Cultura c:selectedCulturas){
-				
-				CulturaPropriedade cp = new CulturaPropriedade();
-				CulturaPropriedadeDAO cpDAO = new CulturaPropriedadeDAO();
-				cp.setDataAssociacao(new Date());
-				cp.setPropriedade(propriedade);
-				cp.setCultura(c);
-				cpDAO.salvar(cp);
-			  			
+			if (propriedade.getPropriedadeId() == 0) {
+
+				if (valida()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+					return "/propriedades/cadastrar_propriedade.xhtml?faces-redirect=true";
+				} else {
+					propriedadeDAO.salvar(propriedade);
+
+					for (Cultura c : selectedCulturas) {
+
+						CulturaPropriedade cp = new CulturaPropriedade();
+						CulturaPropriedadeDAO cpDAO = new CulturaPropriedadeDAO();
+						cp.setDataAssociacao(new Date());
+						cp.setPropriedade(propriedade);
+						cp.setCultura(c);
+						cpDAO.salvar(cp);
+
+					}
+
+					novo();
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("Cadastro realizado com sucesso!"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+					return "/propriedades/propriedades.xhtml?faces-redirect=true";
+				}
+			} else {
+				if (valida()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+					return "/pragas_e_danos/cadastrar_usuarios.xhtml?faces-redirect=true";
+				} else {
+					propriedadeDAO.update(this.propriedade);
+					novo();
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage("Edição realizada com sucesso!"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+
+					return "/propriedades/propriedades.xhtml?faces-redirect=true";
+				}
 			}
-			
-			novo();
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Cadastro realizado com sucesso!"));
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-			return "/propriedades/propriedades.xhtml?faces-redirect=true";
 
 		} catch (RuntimeException erro) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage("Erro ao cadastrar!"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Erro ao cadastrar!"));
 			FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 			erro.printStackTrace();
 			return "/propriedades/propriedades.xhtml?faces-redirect=true";
 		}
 	}
 
-
-	public void editar(ActionEvent evento) {
-		propriedade = (Propriedade) evento.getComponent().getAttributes().get("propriedadeSelecionada");
-
+	public String atualizar(Propriedade propriedade) {
+		propriedade.getPropriedadeId();
+		this.propriedade = propriedade;
+		return "/propriedades/cadastrar_propriedade.xhtml?faces-redirect=true";
 	}
 
-	public void excluir(ActionEvent evento) {
+	public void excluir(Propriedade propriedade) {
 
-		try {
-			// pega o coponente do evento, pega os atributos do componente, pega pelo nome
-			// do aributo.
-			propriedade = (Propriedade) evento.getComponent().getAttributes().get("propriedadeSelecionada");
-
-			PropriedadeDAO propriedadeDAO = new PropriedadeDAO();
-			propriedadeDAO.deletar(propriedade);
-
-			propriedades = propriedadeDAO.listar();
-
-			Messages.addGlobalInfo("Cadastro removido com sucesso");
-
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao tentar remover");
-			erro.printStackTrace();
-		}
+		PropriedadeDAO propriedadeDao = new PropriedadeDAO();
+		FacesContext fc = FacesContext.getCurrentInstance();
+		FacesMessage messagem = new FacesMessage("Praga removida");
+		messagem.setSeverity(FacesMessage.SEVERITY_INFO);
+		fc.addMessage(null, messagem);
+		propriedadeDao.deletar(propriedade);
+		novo();
+		this.propriedades = propriedadeDao.listar();
 	}
-	
-	public void addCulturaPropriedade(Cultura cultura){
-		
+
+	public void addCulturaPropriedade(Cultura cultura) {
+
 		CulturaPropriedade c = new CulturaPropriedade();
 		c.setPropriedade(propriedade);
 		c.setCultura(cultura);
 		Date date = new Date();
 		c.setDataAssociacao(date);
 		culturaPropriedade.add(c);
-		
+
 	}
-	
+
 	public void onSelect(SelectEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null,
@@ -185,5 +219,5 @@ public class PropriedadeBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
 	}
-	
+
 }

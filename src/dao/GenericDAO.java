@@ -50,8 +50,8 @@ public class GenericDAO<T> {
 		Root<T> klassRoot = query.from(classe);
 
 		if (this.classe.getName().equals("models.CulturaPropriedade")
-				|| this.classe.getName().equals("models.PragaCultura")
-				|| this.classe.getName().equals("models.Usuario")) {
+				|| this.classe.getName().equals("models.PragaCultura") || this.classe.getName().equals("models.Usuario")
+				|| this.classe.getName().equals("models.Cultura")) {
 			query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));
 		}
 		List<T> result = session.createQuery(query).getResultList();
