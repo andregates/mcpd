@@ -111,19 +111,11 @@ public class PragaBean implements Serializable {
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao cadastrar");
 			erro.printStackTrace();
-
 			return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
-
 		}
-
 	}
 
-	public String atualizar(Praga praga) {
-		praga.getPragaId();
-		this.praga = praga;
-		return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
-	}
-
+	
 	/**
 	 * Metodo construtor para chamar automaticamente o metodo quando o ManagedBean
 	 * for criado
@@ -196,6 +188,7 @@ public class PragaBean implements Serializable {
 		return pragas;
 	}
 
+
 	public List<String> getPaths() {
 		return paths;
 	}
@@ -223,5 +216,12 @@ public class PragaBean implements Serializable {
 	public void setPartList(List<Part> partList) {
 		this.partList = partList;
 	}
+
+
+	
+	 public String atualizar(Praga praga) {
+			this.praga = praga;
+			return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+		}
 
 }

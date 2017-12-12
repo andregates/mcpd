@@ -8,73 +8,74 @@
 <h:body>
 
 	<ui:composition template="/dashboard/common.xhtml">
+
 		<ui:define name="content">
-      
 			<h:form id="frm">
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
 
+
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
 							<div class="card-header">
-								<i class="fa fa-table"></i> Usuários
-								<h:commandLink action="#{usuarioBean.moveToCadastroUser}"
-									value="Cadastrar usuários"
-									style="color: green; font-weight:bold; margin-left:75%;" />
+								<i class="fa fa-table"></i> Históricos Lançados para a Cultura de: <h:outputText value="#{historicoBean.c.nome}" />
+								
+								<h:commandLink action="cadastrar_historico"
+									value="Cadastrar Histórico"
+									style="color: green; font-weight:bold; margin-left:65%;" />
 							</div>
-
+							
+							
 							<div class="card-footer small text-muted">
-								<p:messages />
-								<p:dataTable id="userTable" var="user"
-									value="#{usuarioBean.usuarios}">
 
-									<p:column headerText="ID" width="5%" style="text-align:center">
-										<h:outputText value="#{user.usuarioId}" />
+								<p:dataTable var="hist" value="#{historicoBean.historicos}">
+
+									<p:column headerText="Id" width="5%" style="text-align:center;">
+										<h:outputText value="#{hist.historicoId}" />
 									</p:column>
-									<p:column headerText="Nome Completo" style="text-align:center">
-										<h:outputText value="#{user.nomeCompleto}" />
-									</p:column>
-									<p:column headerText="Nome de Usuário" style="text-align:center">
-										<h:outputText value="#{user.nomeUsuario}" />
-									</p:column>
-									<p:column headerText="CPF" style="text-align:center">
-										<h:outputText value="#{user.cpf}" />
-									</p:column>
-									<p:column headerText="Data de ativação" style="text-align:center" width="15%">
-										<h:outputText value="#{user.dataAtivacao}" >
+									
+									<p:column headerText="Data de Lançamento" width="10%">
+										<h:outputText value="#{hist.dataHistorico}">
 											<f:convertDateTime pattern="dd/MM/yyyy" />
 										</h:outputText>
 									</p:column>
 
+									<p:column headerText="Descrição" width="20%"
+										style="text-align:left;">
+										<h:outputText value="#{hist.descricao}" />
+									</p:column>
 
-									<p:column headerText="Editar" width="8%"
+								
+									<p:column headerText="Editar" width="7%"
 										style="text-align:center">
-										<p:commandLink action="#{usuarioBean.atualizar(user)}"
+										<p:commandLink action="#{historicoBean.atualizar(hist)}"
 											update="frm">
 											<img src="../img/edit.png" />
 										</p:commandLink>
-
 									</p:column>
 
-									<p:column headerText="Excluir" width="9%"
+									<p:column headerText="Excluir" width="8%"
 										style="text-align:center">
-										<p:commandLink action="#{usuarioBean.excluir(user)}"
+										<p:commandLink action="#{historicoBean.excluir(hist)}"
 											update="frm">
 											<img src="../img/trash.png" />
 										</p:commandLink>
-
 									</p:column>
+
+									
 								</p:dataTable>
 							</div>
 						</div>
+
 					</div>
 					<!-- /.container-fluid -->
+
 				</div>
 				<!-- /.content-wrapper -->
 			</h:form>
-			
 		</ui:define>
+
 	</ui:composition>
 
 </h:body>
