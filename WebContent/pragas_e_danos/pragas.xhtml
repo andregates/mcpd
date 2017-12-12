@@ -10,7 +10,7 @@
 	<ui:composition template="/dashboard/common.xhtml">
 
 		<ui:define name="content">
-			<h:form>
+			<h:form  id="frm">
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
@@ -29,25 +29,41 @@
 								<p:messages closable="true"  />
 								<p:dataTable var="prag" value="#{pragaBean.pragas}">
 
-									<p:column headerText="Id" width="5%" style="text-align:center;">
+									<p:column headerText="Id" width="3%" style="text-align:center;">
 										<h:outputText value="#{prag.pragaId}" />
 									</p:column>
-									<p:column headerText="Nome" width="25%">
+									<p:column headerText="Nome" width="15%">
 										<h:outputText value="#{prag.nome}" />
 									</p:column>
 
 									<p:column headerText="Nome Científico"
-										style="text-align:center;">
+										style="text-align:center;" width="12%">
 										<h:outputText value="#{prag.nomeCientifico}" />
 									</p:column>
 									
 									<p:column headerText="Gravidade do Dano"
-										style="text-align:center;">
+										style="text-align:center;" width="9%" >
 										<h:outputText value="#{prag.escala1}" />
 									</p:column>
 									
 									<p:column style="width:3%">
 										<p:rowToggler />
+									</p:column>
+									
+									<p:column headerText="Editar" width="7%"
+										style="text-align:center">
+										<p:commandLink action="#{pragaBean.atualizar(prag)}"
+											update="frm">
+											<img src="../img/edit.png" />
+										</p:commandLink>
+									</p:column>
+
+									<p:column headerText="Excluir" width="8%"
+										style="text-align:center">
+										<p:commandLink action="#{pragaBean.excluir(prag)}"
+											update="frm">
+											<img src="../img/trash.png" />
+										</p:commandLink>
 									</p:column>
 									<p:rowExpansion>
 										<p:panelGrid columns="2" columnClasses="label,value"

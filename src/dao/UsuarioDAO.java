@@ -13,32 +13,9 @@ import util.HibernateUtil;
 
 public class UsuarioDAO extends GenericDAO<Usuario> {
 
-	/*public Usuario autenticar(String username, String cpf) {
-
-		// Session session = HibernateUtil.getSessionFactory().openSession();
-		Usuario usuarioLogado = new Usuario();
-		List<Usuario> usuarios = listar();
-		// boolean flag = false;
-
-		for (Usuario usuario : usuarios) {
-			if (username.equals(usuario.getNomeUsuario()) && cpf.equals(usuario.getCpf())) {
-				usuarioLogado = usuario;
-				FacesContext context = FacesContext.getCurrentInstance();
-				ExternalContext ec = context.getExternalContext();
-				HttpSession s = (HttpSession) ec.getSession(true);
-				s.setAttribute("usuario-logado", usuario);
-				break;
-			} else {
-				usuarioLogado = null;
-			}
-		}
-
-		return usuarioLogado;
-	}*/
-
 	@SuppressWarnings({ "deprecation" })
 	public Usuario logar(Usuario user) {
-		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Session sessao  = HibernateUtil.getSessionFactory().openSession();
 		try {
 			Criteria consulta = sessao.createCriteria(Usuario.class);
 			consulta.add(Restrictions.eq("nomeUsuario", user.getNomeUsuario()))

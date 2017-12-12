@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://java.sun.com/jsf/core">
+
+<h:body>
+		
+
+	<ui:composition template="/dashboard/common.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<div class="content-wrapper">
+
+					<div class="container-fluid">
+						
+						<p:messages/>
+						<!-- Example Tables Card -->
+						<div class="card mb-3">
+							<div class="card-header">
+								<i class="fa fa-table"></i> Lançamento de Ocorrência no Histórico
+							</div>	
+						</div>
+								<div class="form-group">
+										<label class="control-label col-sm-2">Data Lançamento</label>
+										<div class="col-sm-8">
+											<p:calendar id="popup" value="#{historicoBean.historico.dataHistorico}" locale="pt" 
+	pattern="dd/MM/yyyy" />
+											</div>
+						    	</div>
+							
+       							<div class="form-group">
+									<label class="control-label col-sm-2">Descrição</label>
+									<div class="col-sm-10">
+										<h:inputTextarea class="form-control" cols="30" rows="5"
+											value="#{historicoBean.historico.descricao}" />
+									</div>
+								</div>
+
+								<hr />
+
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<h:commandLink action="#{historicoBean.salvar()}"
+											value="Confirmar" class="btn btn-default"
+											style="background-color: green; color:white; margin-right:5px" />
+										<h:commandLink action="culturas/historicos" value="Cancelar"
+											class="btn btn-default"
+											style="background-color: red; color:white;" />
+
+									</div>
+								
+						</div>
+
+					</div>
+					<!-- /.container-fluid -->
+
+				</div>
+				<!-- /.content-wrapper -->
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+	
+
+</h:body>
+</html>

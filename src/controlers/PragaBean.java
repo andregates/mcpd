@@ -94,12 +94,12 @@ public class PragaBean implements Serializable {
 
 	}
 
-	public void excluir(ActionEvent evento) {
+	public void excluir(Praga praga) {
 
 		try {
 			// pega o coponente do evento, pega os atributos do componente, pega pelo nome
 			// do aributo.
-			praga = (Praga) evento.getComponent().getAttributes().get("pragaSelecionada");
+			this.praga = praga;
 
 			PragaDAO pragaDAO = new PragaDAO();
 			pragaDAO.deletar(praga);
@@ -113,4 +113,9 @@ public class PragaBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
+	
+	 public String atualizar(Praga praga) {
+			this.praga = praga;
+			return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+		}
 }

@@ -11,8 +11,11 @@ import org.hibernate.Criteria;
 //import org.hibernate.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import models.Historico;
 import util.HibernateUtil;
 
 public class GenericDAO<T> {
@@ -52,11 +55,30 @@ public class GenericDAO<T> {
         if(this.classe.getName().equals("models.CulturaPropriedade") || this.classe.getName().equals("models.PragaCultura")  )  {
         	query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));        	
         }
+        
         List<T> result = session.createQuery(query).getResultList();
 
         session.close();        
         return result;	
-        }
+        
+     }
+	
+	@SuppressWarnings({ "unchecked", "deprecation" })
+	public List<T> listarCriterio(String attribute, Integer id, String atributoOrdenacao) {
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		try {
+			Criteria consulta = sessao.createCriteria(classe);
+			consulta.add(Restrictions.eq(attribute, id));
+			consulta.addOrder(Order.asc(atributoOrdenacao));
+			List<T> resultado = (List<T>) consulta.list();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+        
+     }
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public T buscar(Integer id) {
