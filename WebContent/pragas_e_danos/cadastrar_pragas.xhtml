@@ -53,23 +53,59 @@
 									</div>
 								</div>
 
-
+								<hr />
 								<div class="form-group">
-									<label class="control-label col-sm-2">Gravidade de Dano</label>
-									<div class="col s6">
-										<h:selectOneRadio id="pra" value="#{pragaBean.praga.escala}"
-											style="font-size:12px; padding:50px" layout="pageDirection">
-											<f:selectItem itemLabel="Muito Alto" itemValue="Muito Alto" />
-											<f:selectItem itemLabel="Alto" itemValue="Alto" />
-											<f:selectItem itemLabel="Médio" itemValue="Médio" />
-											<f:selectItem itemLabel="Baixo" itemValue="Baixo" />
-											<f:selectItem itemLabel="Muito Baixo" itemValue="Muito Baixo" />
+									<label class="control-label col-sm-3"><strong>Escala
+											de Gravidade de Dano</strong></label>
 
-										</h:selectOneRadio>
+									<div class="form-group">
+										<label class="control-label col-sm-2">Nível 1</label>
+										<div class="col-sm-5">
+											<h:inputText class="form-control"
+												value="#{pragaBean.praga.escala1}" />
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-sm-2">Nível 2</label>
+										<div class="col-sm-5">
+											<h:inputText class="form-control"
+												value="#{pragaBean.praga.escala2}" />
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-sm-2">Nível 3</label>
+										<div class="col-sm-5">
+											<h:inputText class="form-control"
+												value="#{pragaBean.praga.escala3}" />
+
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label class="control-label col-sm-2">Nível 4</label>
+										<div class="col-sm-5">
+											<h:inputText class="form-control"
+												value="#{pragaBean.praga.escala4}" />
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-sm-2">Nível 5</label>
+										<div class="col-sm-5">
+											<h:inputText class="form-control"
+												value="#{pragaBean.praga.escala5}" />
+
+										</div>
 									</div>
 
 								</div>
-
+								<hr />
 								<div class="form-group">
 									<label class="control-label col-sm-2">Ação de Combate</label>
 									<div class="col-sm-10">
@@ -82,11 +118,14 @@
 									<label class="control-label col-sm-6">Anexar Imagens
 										(#{pragaBean.paths.size()}/5) </label>
 									<div class="col-sm-10">
-										
-										
-										<h:outputText value="#{pragaBean.paths}" rendered="#{pragaBean.paths.size() > 0}"/><br/><br/>
 
-										
+
+										<h:outputText value="#{pragaBean.paths}"
+											rendered="#{pragaBean.paths.size() > 0}" />
+										<br />
+										<br />
+
+
 										<h:inputFile id="file" value="#{pragaBean.uploadedPhoto}" />
 										<h:commandButton value="Upload"
 											action="#{pragaBean.uploadImagem}" />
