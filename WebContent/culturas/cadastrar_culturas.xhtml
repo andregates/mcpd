@@ -34,9 +34,8 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-sm-7"> 
-										Selecione as Pragas que afetam esta Cultura 
-									</label>
+									<label class="control-label col-sm-7"> Selecione as
+										Pragas que afetam esta Cultura </label>
 									<h:form id="formPraga">
 
 										<p:growl id="msg" showDetail="true" escape="false" />
@@ -45,8 +44,7 @@
 											value="#{culturaBean.allPragas}"
 											selection="#{culturaBean.selectedPragas}"
 											rowKey="#{pragasLista.pragaId}"
-											style="margin-left: 16px; margin-bottom:0"
-											styleClass="table">
+											style="margin-left: 16px; margin-bottom:0" styleClass="table">
 
 											<p:column selectionMode="multiple"
 												style="width:16px;text-align:center" />
@@ -84,8 +82,10 @@
 									<label class="control-label col-sm-2">Período do
 										Plantio</label>
 									<div class="col-sm-5">
-										<h:inputText class="form-control"
-											value="#{culturaBean.cultura.periodoPlantio}" />
+										<p:inputMask id="date" mask="99/99/9999"
+											value="#{culturaBean.cultura.periodoPlantio}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</p:inputMask>
 									</div>
 								</div>
 
@@ -93,8 +93,10 @@
 									<label class="control-label col-sm-2">Período da
 										Colheita</label>
 									<div class="col-sm-5">
-										<h:inputText class="form-control"
-											value="#{culturaBean.cultura.periodoColheita}" />
+										<p:inputMask id="date2" mask="99/99/9999"
+											value="#{culturaBean.cultura.periodoColheita}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</p:inputMask>
 									</div>
 								</div>
 

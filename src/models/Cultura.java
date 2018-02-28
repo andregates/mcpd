@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -35,10 +37,12 @@ public class Cultura implements Serializable {
 	private String descricao;
 
 	@Column
-	private String periodoPlantio;
+	@Temporal(TemporalType.DATE)
+	private Date periodoPlantio;
 
 	@Column
-	private String periodoColheita;
+	@Temporal(TemporalType.DATE)
+	private Date periodoColheita;
 
 	@Column
 	private String areaPlantio;
@@ -64,7 +68,7 @@ public class Cultura implements Serializable {
 	@OneToMany(mappedBy = "cultura", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<CulturaPropriedade> culturaPropriedade = new ArrayList<CulturaPropriedade>();
 
-	public Cultura(Integer culturaId, String nome, String descricao, String periodoPlantio, String periodoColheita,
+	public Cultura(Integer culturaId, String nome, String descricao, Date periodoPlantio, Date periodoColheita,
 			String areaPlantio, String obs, Date dataAtivacao, Date dataInativacao, List<Historico> historicoDaCultura,
 			List<Registro> registros, List<PragaCultura> pragaCultura, List<CulturaPropriedade> culturaPropriedade) {
 		super();
@@ -107,19 +111,19 @@ public class Cultura implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String getPeriodoPlantio() {
+	public Date getPeriodoPlantio() {
 		return periodoPlantio;
 	}
 
-	public void setPeriodoPlantio(String periodoPlantio) {
+	public void setPeriodoPlantio(Date periodoPlantio) {
 		this.periodoPlantio = periodoPlantio;
 	}
 
-	public String getPeriodoColheita() {
+	public Date getPeriodoColheita() {
 		return periodoColheita;
 	}
 
-	public void setPeriodoColheita(String periodoColheita) {
+	public void setPeriodoColheita(Date periodoColheita) {
 		this.periodoColheita = periodoColheita;
 	}
 
