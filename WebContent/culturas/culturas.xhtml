@@ -26,13 +26,14 @@
 							</div>
 
 							<div class="card-footer small text-muted">
-								<p:messages closable="true"/>
+								<p:messages closable="true" />
 								<p:dataTable var="cult" value="#{culturaBean.culturas}">
 
 									<p:column headerText="Id" width="5%" style="text-align:center;">
 										<h:outputText value="#{cult.culturaId}" />
 									</p:column>
-									<p:column headerText="Nome" width="25%" style="text-align:center">
+									<p:column headerText="Nome" width="25%"
+										style="text-align:center">
 										<h:outputText value="#{cult.nome}" />
 									</p:column>
 
@@ -41,15 +42,22 @@
 										<h:outputText value="#{cult.areaPlantio} m²" />
 									</p:column>
 
-									<p:column headerText="Período do Plantio" style="text-align:center">
-										<h:outputText value="#{cult.periodoPlantio}" />
+									<p:column headerText="Período do Plantio"
+										style="text-align:center">
+										<h:outputText value="#{cult.periodoPlantio}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
 									</p:column>
 
-									<p:column headerText="Período da Colheita" style="text-align:center">
-										<h:outputText value="#{cult.periodoColheita}" />
+									<p:column headerText="Período da Colheita"
+										style="text-align:center">
+										<h:outputText value="#{cult.periodoColheita}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
 									</p:column>
 
-									<p:column headerText="Data de Ativação" style="text-align:center">
+									<p:column headerText="Data de Ativação"
+										style="text-align:center">
 										<h:outputText value="#{cult.dataAtivacao}">
 											<f:convertDateTime pattern="dd/MM/yyyy" />
 										</h:outputText>
@@ -82,7 +90,7 @@
 									<p:column style="width:3%">
 										<p:rowToggler title="Ver mais" />
 									</p:column>
-									
+
 									<p:rowExpansion>
 										<p:panelGrid columns="2" columnClasses="label,value"
 											style="width:500px; margin-left:4%;">

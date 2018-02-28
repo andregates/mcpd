@@ -37,7 +37,7 @@ public class Usuario implements Serializable {
 	private String nomeUsuario;
 
 	@Column(name = "lastAccess", unique = true)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date ultimoAcesso;
 
 	@Column
