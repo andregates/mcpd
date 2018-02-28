@@ -8,8 +8,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.servlet.http.HttpSession;
+
 import models.Cultura;
 import models.Praga;
 import models.PragaCultura;
@@ -215,4 +218,13 @@ public class CulturaBean implements Serializable {
 		this.culturas = culturaDao.listar();
 	}
 	
+	public String historico(Cultura cultura) {
+		FacesContext fc=FacesContext.getCurrentInstance();
+		ExternalContext ec = fc.getExternalContext();   
+	    HttpSession session = (HttpSession) ec.getSession(false); 
+	    session.setAttribute("cultura", cultura);
+	    return "/culturas/historicos.xhtml?faces-redirect=true";
+	}
+
+
 }

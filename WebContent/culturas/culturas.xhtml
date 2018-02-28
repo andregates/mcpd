@@ -62,8 +62,16 @@
 											<f:convertDateTime pattern="dd/MM/yyyy" />
 										</h:outputText>
 									</p:column>
+									
+									<p:column headerText="Histórico" width="9%"
+										style="text-align:center">
+										<p:commandLink action="#{culturaBean.historico(cult)}"
+											update="frm">
+											<img src="../img/hist.png" />
+										</p:commandLink>
+									</p:column>
 
-									<p:column headerText="Editar" width="6%"
+									<p:column headerText="Editar" width="7%"
 										style="text-align:center">
 										<p:commandLink action="#{culturaBean.atualizar(cult)}"
 											update="frm">
@@ -71,7 +79,7 @@
 										</p:commandLink>
 									</p:column>
 
-									<p:column headerText="Excluir" width="7%"
+									<p:column headerText="Excluir" width="8%"
 										style="text-align:center">
 										<p:commandLink action="#{culturaBean.excluir(cult)}"
 											update="frm">

@@ -15,7 +15,7 @@
 	<meta name="author" content="" />
 	<title>MCPD</title>
 
-	<!-- Bootstrap core CSS -->
+	<!-- Bootstrap core CSS  -->
 	<link href="../resources/vendor/bootstrap/css/bootstrap.min.css"
 		rel="stylesheet" />
 
@@ -54,9 +54,11 @@
 		</div>
 
 	</div>
+	
+	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="../resources/vendor/jquery/jquery.min.js"></script>
+	<!-- Bootstrap core JavaScript 
+	<script src="../resources/vendor/jquery/jquery.min.js"></script>-->
 	<script src="../resources/vendor/popper/popper.js"></script>
 	<script src="../resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 
@@ -66,11 +68,40 @@
 	<script src="../resources/vendor/datatables/jquery.dataTables.js"></script>
 	<script src="../resources/vendor/datatables/dataTables.bootstrap4.js"></script>
 	<script src="../resources/vendor/jquery/jquery.inputmask.date.extensions.js"></script>
-	<script src="../resources/vendor/jquery/jquery.maskedinput.min.js"></script>
+		<script src="../resources/vendor/jquery/jquery.maskedinput.min.js"></script>
 	
 
-	<!-- Custom scripts for this template -->
+	<!-- Custom scripts for this template  -->
 	<script src="../resources/js/sb-admin.min.js"></script>
+	
+		<script>
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Começo',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo o Dia'
+            };
+        </script>
 
 </h:body>
 

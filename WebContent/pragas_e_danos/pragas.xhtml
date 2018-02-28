@@ -10,7 +10,9 @@
 	<ui:composition template="/dashboard/common.xhtml">
 
 		<ui:define name="content">
+
 			<h:form id="form">
+
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
@@ -29,40 +31,27 @@
 								<p:messages closable="true" />
 								<p:dataTable var="prag" value="#{pragaBean.pragas}">
 
-									<p:column headerText="Id" width="5%" style="text-align:center;">
+									<p:column headerText="Id" width="3%" style="text-align:center;">
 										<h:outputText value="#{prag.pragaId}" />
 									</p:column>
-									<p:column headerText="Nome" width="25%">
+									<p:column headerText="Nome" width="15%">
 										<h:outputText value="#{prag.nome}" />
 									</p:column>
 
 									<p:column headerText="Nome Científico"
-										style="text-align:center;">
+										style="text-align:center;" width="12%">
 										<h:outputText value="#{prag.nomeCientifico}" />
 									</p:column>
 
 									<p:column headerText="Gravidade do Dano"
-										style="text-align:center;">
-										<h:outputText value="#{prag.escala}" />
+
+										style="text-align:center;" width="9%" >
+										<h:outputText value="#{prag.escala1}" />
 									</p:column>
 
 									<p:column style="width:3%">
 										<p:rowToggler />
 									</p:column>
-
-									<p:rowExpansion>
-										<p:panelGrid columns="2" columnClasses="label,value"
-											style="width:500px; margin-left:4%;">
-
-											<h:outputText value="Descrição" style="font-weight:bold;" />
-											<h:outputText value="#{prag.descricao}" />
-
-											<h:outputText value="Ação de Combate"
-												style="font-weight:bold;" />
-											<h:outputText value="#{prag.acaoCombate}" />
-
-										</p:panelGrid>
-									</p:rowExpansion>
 									
 									<p:column headerText="Editar" width="6%"
 										style="text-align:center">
@@ -81,6 +70,22 @@
 										</p:commandLink>
 
 									</p:column>
+
+									<p:rowExpansion>
+										<p:panelGrid columns="2" columnClasses="label,value"
+											style="width:500px; margin-left:4%;">
+
+											<h:outputText value="Descrição" style="font-weight:bold;" />
+											<h:outputText value="#{prag.descricao}" />
+
+											<h:outputText value="Ação de Combate"
+												style="font-weight:bold;" />
+											<h:outputText value="#{prag.acaoCombate}" />
+
+										</p:panelGrid>
+									</p:rowExpansion>
+									
+									
 								</p:dataTable>
 
 								
