@@ -1,5 +1,4 @@
 package controlers;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -103,12 +102,30 @@ public class CulturaBean implements Serializable {
 
 	public boolean valida() {
 		if (cultura.getNome().isEmpty() || cultura.getAreaPlantio().isEmpty() || cultura.getDescricao().isEmpty()
-				|| cultura.getPeriodoPlantio().isEmpty() || cultura.getObs().isEmpty()) {
+				|| cultura.getPeriodoPlantio() == null || cultura.getPeriodoColheita() == null || cultura.getObs().isEmpty()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
+	/*public boolean validaPeriodos() {
+		String[] dataPlantio = this.cultura.getPeriodoPlantio().split("/");
+		String[] dataColheita = this.cultura.getPeriodoColheita().split("/");
+		
+		int diaPlantio = Integer.parseInt(dataPlantio[0]);
+		int mesPlantio = Integer.parseInt(dataPlantio[1]);
+		
+		int diaColheita = Integer.parseInt(dataColheita[0]);
+		int mesColheita = Integer.parseInt(dataColheita[1]);
+		
+		
+		
+		if((diaPlantio > 31 || mesPlantio > 12) || (diaColheita > 31 || mesColheita > 12))
+			return false;
+		else
+			return true;
+	}*/
 
 	public String salvar() {
 		// Flash scope
@@ -117,6 +134,7 @@ public class CulturaBean implements Serializable {
 
 		try {
 			CulturaDAO culturaDAO = new CulturaDAO();
+			
 
 			if (cultura.getCulturaId() == null) {
 
@@ -125,6 +143,7 @@ public class CulturaBean implements Serializable {
 							new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!", "Preencha todos os campos"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/culturas/cadastrar_culturas.xhtml?faces-redirect=true";
+				
 				} else {
 					cultura.setDataAtivacao(new Date());
 					culturaDAO.salvar(this.cultura);
@@ -195,5 +214,5 @@ public class CulturaBean implements Serializable {
 		this.cultura = new Cultura();
 		this.culturas = culturaDao.listar();
 	}
-
+	
 }

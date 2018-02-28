@@ -3,6 +3,7 @@ package controlers;
 import javax.faces.bean.ManagedBean;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
@@ -58,6 +59,9 @@ public class LoginBean {
 
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		getUsuarioLogado().setUltimoAcesso(new Date());
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		usuarioDAO.update(getUsuarioLogado());
 		return "/index.xhtml?faces-redirect=true";
 	}
 }
