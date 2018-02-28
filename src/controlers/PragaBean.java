@@ -59,14 +59,37 @@ public class PragaBean implements Serializable {
 	}
 
 	public boolean valida() {
-		if (praga.getAcaoCombate().isEmpty() || praga.getDescricao().isEmpty() || praga.getEscala1().isEmpty() || praga.getEscala2().isEmpty() ||
-				praga.getEscala3().isEmpty() || praga.getEscala4().isEmpty() || praga.getEscala5().isEmpty() || praga.getNome().isEmpty() || praga.getNomeCientifico().isEmpty()) {
+		if (praga.getAcaoCombate().isEmpty() || praga.getDescricao().isEmpty() || praga.getNome().isEmpty() || praga.getNomeCientifico().isEmpty()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
+	public boolean validacaoEscala() {
+		int count = 0;
+		
+		if(praga.getEscala1().isEmpty()) 
+			count++;
 
+		if(praga.getEscala2().isEmpty()) 
+			count++;
+		
+		if(praga.getEscala3().isEmpty()) 
+			count++;
+
+		if(praga.getEscala4().isEmpty()) 
+			count++;
+
+		if(praga.getEscala5().isEmpty()) 
+			count++;
+		
+		if(count > 2)
+			return true;
+		else
+			return false;
+	}
+	
 	public String salvar() throws IOException {
 		try {
 			PragaDAO pragaDAO = new PragaDAO();
@@ -78,6 +101,12 @@ public class PragaBean implements Serializable {
 							"Atenção! Preencha todos os campos", "Preencha todos os campos"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+				} else if (validacaoEscala()) {
+					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
+							"Atenção! Preencha pelo menos 3 níveis de Escala de Gravidade", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+					return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+				
 				} else {
 					praga.setListaPath(paths);
 					pragaDAO.salvar(praga);
