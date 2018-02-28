@@ -59,8 +59,8 @@ public class PragaBean implements Serializable {
 	}
 
 	public boolean valida() {
-		if (praga.getAcaoCombate().isEmpty() || praga.getDescricao().isEmpty() || praga.getEscala().isEmpty()
-				|| praga.getNome().isEmpty() || praga.getNomeCientifico().isEmpty()) {
+		if (praga.getAcaoCombate().isEmpty() || praga.getDescricao().isEmpty() || praga.getEscala1().isEmpty() || praga.getEscala2().isEmpty() ||
+				praga.getEscala3().isEmpty() || praga.getEscala4().isEmpty() || praga.getEscala5().isEmpty() || praga.getNome().isEmpty() || praga.getNomeCientifico().isEmpty()) {
 			return true;
 		} else {
 			return false;
