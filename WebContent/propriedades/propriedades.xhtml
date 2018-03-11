@@ -20,15 +20,16 @@
 						<div class="card mb-3">
 							<div class="card-header">
 								<i class="fa fa-table"></i> Propriedades
-								<h:commandLink action="#{propriedadeBean.moveToCadastroPropriedade}"
+								<h:commandLink
+									action="#{propriedadeBean.moveToCadastroPropriedade}"
 									value="Cadastrar Propriedade"
 									style="color: green; font-weight:bold; margin-left:70%;" />
 							</div>
 
 							<div class="card-footer small text-muted">
 								<p:messages closable="true" />
-								<p:dataTable var="prop" value="#{propriedadeBean.propriedades}">
-
+								<p:dataTable id="tbl" var="prop" style="font-size:12px;"
+									value="#{propriedadeBean.propriedades}">
 
 									<p:column headerText="Id" width="4%" style="text-align:center;">
 										<h:outputText value="#{prop.propriedadeId}" />
@@ -59,13 +60,13 @@
 
 									<p:rowExpansion>
 										<p:panelGrid columns="2" columnClasses="label,value"
-											style="width:500px;margin-left:4%;">
+											style="width:500px;">
 
-											<h:outputText value="Nome Responsável"
+											<h:outputText value="Nome do Responsável"
 												style="font-weight:bold;" />
 											<h:outputText value="#{prop.nomeResponsavel}" />
 
-											<h:outputText value="Telefone Responsável"
+											<h:outputText value="Telefonedo Responsável"
 												style="font-weight:bold;" />
 											<h:outputText value="#{prop.telefoneResponsavel}" />
 
@@ -96,26 +97,28 @@
 
 									</p:rowExpansion>
 
-									<p:column headerText="Editar" width="6%"
-										style="text-align:center">
+									<p:column width="4%" style="text-align:center">
 										<p:commandLink action="#{propriedadeBean.atualizar(prop)}"
 											update="form">
-											<img src="../img/edit.png" />
+											<img src="../img/edit.png" title="Editar"/>
 										</p:commandLink>
 
 									</p:column>
 
-									<p:column headerText="Excluir" width="7%"
-										style="text-align:center">
+									<p:column width="4%" style="text-align:center">
 										<p:commandLink action="#{propriedadeBean.excluir(prop)}"
 											update="form">
-											<img src="../img/trash.png" />
+											<img src="../img/trash.png" title="Excluir"/>
 										</p:commandLink>
 
 									</p:column>
-
-
 								</p:dataTable>
+								
+								<hr/>
+
+								<a id="botao" href="../propriedades/download.xhtml" title="Exportar formato .xls"
+											target="_blank"><img src="../img/document.png" /></a>
+								
 							</div>
 						</div>
 
@@ -128,6 +131,13 @@
 		</ui:define>
 
 	</ui:composition>
-
+	<script type="text/javascript">
+		function download() {
+			window.setTimeout(function() {
+				var popup = window.open("../propriedades/download.xhtml");
+				popup.close();
+			}, 2000);
+		}
+	</script>
 </h:body>
 </html>

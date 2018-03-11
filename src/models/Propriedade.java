@@ -25,7 +25,7 @@ public class Propriedade implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int propriedadeId;
+	private Integer propriedadeId;
 
 	@Column(length = 50, nullable = false)
 	private String nomePropriedade;
@@ -225,11 +225,11 @@ public class Propriedade implements Serializable {
 		return serialVersionUID;
 	}
 
-	public int getPropriedadeId() {
+	public Integer getPropriedadeId() {
 		return propriedadeId;
 	}
 
-	public void setPropriedadeId(int propriedadeId) {
+	public void setPropriedadeId(Integer propriedadeId) {
 		this.propriedadeId = propriedadeId;
 	}
 

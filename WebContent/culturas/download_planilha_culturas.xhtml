@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>MCPD</title>
+
+</h:head>
+
+<h:body>
+	<div>
+		<h:form id="form">
+			<h4 align="center" style="font-family: Arial; color: green;">Seu Download iniciará em instantes...</h4>
+			<h:commandLink id="botao" style="margin-left:46%">
+				<p:dataExporter type="xls" target="tbl" fileName="relatorio_culturas"
+					postProcessor="#{culturaBean.postProcessXLS}" />
+			</h:commandLink>
+			<p:dataTable id="tbl" var="cult" style="font-size:12px;"
+				value="#{culturaBean.culturas}">
+
+				<p:column headerText="Id" width="4%" style="text-align:center;">
+					<h:outputText value="#{cult.culturaId}" />
+				</p:column>
+				<p:column headerText="Nome">
+					<h:outputText value="#{cult.nome}" />
+				</p:column>
+
+				<p:column headerText="Área Plantio">
+					<h:outputText value="#{cult.areaPlantio} m²" />
+				</p:column>
+
+				<p:column headerText="Período do Plantio" style="width:5%; text-align:center;">
+					<h:outputText value="#{cult.periodoPlantio}" />
+				</p:column>
+				<p:column headerText="Período da Colheita">
+					<h:outputText value="#{cult.periodoColheita}" />
+				</p:column>
+
+				<p:column headerText="Data de Ativação">
+					<h:outputText value="#{cult.dataAtivacao}" />
+				</p:column>
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{cult.descricao}" />
+				</p:column>
+
+				<p:column headerText="Observações">
+					<h:outputText value="#{cult.obs}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<script type="text/javascript">
+				window.setTimeout(function() {
+					document.getElementById("form:botao").click();
+					popup.close();
+				}, 3000);
+			</script>
+
+
+		</h:form>
+	</div>
+</h:body>
+
+
+</html>

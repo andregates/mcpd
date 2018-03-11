@@ -7,7 +7,7 @@
 	xmlns:t="http://java.sun.com/jsf/core">
 
 <h:body>
-		
+
 
 	<ui:composition template="/dashboard/common.xhtml">
 
@@ -16,23 +16,26 @@
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
-						
-						<p:messages/>
+
+						<p:messages />
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
 							<div class="card-header">
-								<i class="fa fa-table"></i> Lançamento de Ocorrência no Histórico
-							</div>	
-						</div>
+								<i class="fa fa-table"></i> Lançamento de Ocorrência no
+								Histórico
+							</div>
+
+							<div class="card-footer small text-muted">
 								<div class="form-group">
-										<label class="control-label col-sm-2">Data Lançamento</label>
-										<div class="col-sm-8">
-											<p:calendar id="popup" value="#{historicoBean.historico.dataHistorico}" locale="pt" 
-	pattern="dd/MM/yyyy" />
-											</div>
-						    	</div>
-							
-       							<div class="form-group">
+									<label class="control-label col-sm-2">Data Lançamento</label>
+									<div class="col-sm-8">
+										<p:calendar id="popup"
+											value="#{historicoBean.historico.dataHistorico}" locale="pt"
+											pattern="dd/MM/yyyy" />
+									</div>
+								</div>
+
+								<div class="form-group">
 									<label class="control-label col-sm-2">Descrição</label>
 									<div class="col-sm-10">
 										<h:inputTextarea class="form-control" cols="30" rows="5"
@@ -47,14 +50,15 @@
 										<h:commandLink action="#{historicoBean.salvar()}"
 											value="Confirmar" class="btn btn-default"
 											style="background-color: green; color:white; margin-right:5px" />
-										<h:commandLink action="culturas/historicos" value="Cancelar"
+										<h:commandLink action="historicos" value="Cancelar"
 											class="btn btn-default"
 											style="background-color: red; color:white;" />
 
 									</div>
-								
-						</div>
 
+								</div>
+							</div>
+						</div>
 					</div>
 					<!-- /.container-fluid -->
 
@@ -64,7 +68,7 @@
 		</ui:define>
 
 	</ui:composition>
-	
+
 
 </h:body>
 </html>

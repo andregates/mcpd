@@ -11,11 +11,9 @@ import org.hibernate.Criteria;
 //import org.hibernate.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-import models.Historico;
 import util.HibernateUtil;
 
 public class GenericDAO<T> {
@@ -45,7 +43,8 @@ public class GenericDAO<T> {
 		}
 	}
 
-	public List<T> listar() {
+	/**Método responsavel por listar registros de acordo com nome da classe passado como parametro*/
+	public List<T> listar(String nomeEntidade) {
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -53,10 +52,12 @@ public class GenericDAO<T> {
 
 		Root<T> klassRoot = query.from(classe);
 
-		if (this.classe.getName().equals("models.CulturaPropriedade")
-				|| this.classe.getName().equals("models.PragaCultura") || this.classe.getName().equals("models.Usuario")
-				|| this.classe.getName().equals("models.Cultura")) {
-			query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));
+		if (this.classe.getName().equals("models."+nomeEntidade)) {
+			try {
+				query.select(klassRoot).where(builder.isNull(klassRoot.get("dataInativacao")));
+			} catch (Exception e) {
+				query.select(klassRoot);
+			}
 		}
 		List<T> result = session.createQuery(query).getResultList();
 
