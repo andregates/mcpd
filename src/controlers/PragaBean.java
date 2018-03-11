@@ -3,7 +3,6 @@ package controlers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,15 +10,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.http.Part;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.omnifaces.util.Messages;
 
 import dao.PragaDAO;
-import dao.UsuarioDAO;
 import models.Praga;
-import models.Usuario;
 import util.Upload;
 
 @SuppressWarnings("serial")
@@ -38,6 +40,8 @@ public class PragaBean implements Serializable {
 	private List<Part> partList;
 	private Part uploadedPhoto;
 
+	private String escalasFormatadas;
+
 	/**
 	 * Metodo para limpar o campo. Chamar lista na view, quando o usuario clicar no
 	 * botão.
@@ -45,7 +49,7 @@ public class PragaBean implements Serializable {
 	public void novo() {
 		praga = new Praga();
 	}
-	
+
 	public String moveToCadastraPraga() {
 		novo();
 		return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
@@ -59,37 +63,38 @@ public class PragaBean implements Serializable {
 	}
 
 	public boolean valida() {
-		if (praga.getAcaoCombate().isEmpty() || praga.getDescricao().isEmpty() || praga.getNome().isEmpty() || praga.getNomeCientifico().isEmpty()) {
+		if (praga.getAcaoCombate().isEmpty() || praga.getDescricao().isEmpty() || praga.getNome().isEmpty()
+				|| praga.getNomeCientifico().isEmpty()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	public boolean validacaoEscala() {
 		int count = 0;
-		
-		if(praga.getEscala1().isEmpty()) 
+
+		if (praga.getEscala1().isEmpty())
 			count++;
 
-		if(praga.getEscala2().isEmpty()) 
-			count++;
-		
-		if(praga.getEscala3().isEmpty()) 
+		if (praga.getEscala2().isEmpty())
 			count++;
 
-		if(praga.getEscala4().isEmpty()) 
+		if (praga.getEscala3().isEmpty())
 			count++;
 
-		if(praga.getEscala5().isEmpty()) 
+		if (praga.getEscala4().isEmpty())
 			count++;
-		
-		if(count > 2)
+
+		if (praga.getEscala5().isEmpty())
+			count++;
+
+		if (count > 2)
 			return true;
 		else
 			return false;
 	}
-	
+
 	public String salvar() throws IOException {
 		try {
 			PragaDAO pragaDAO = new PragaDAO();
@@ -102,11 +107,13 @@ public class PragaBean implements Serializable {
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
 				} else if (validacaoEscala()) {
-					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
-							"Atenção! Preencha pelo menos 3 níveis de Escala de Gravidade", "Preencha todos os campos"));
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_WARN,
+									"Atenção! Preencha pelo menos 3 níveis de Escala de Gravidade",
+									"Preencha todos os campos"));
 					FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 					return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
-				
+
 				} else {
 					praga.setListaPath(paths);
 					pragaDAO.salvar(praga);
@@ -144,7 +151,6 @@ public class PragaBean implements Serializable {
 		}
 	}
 
-	
 	/**
 	 * Metodo construtor para chamar automaticamente o metodo quando o ManagedBean
 	 * for criado
@@ -197,6 +203,27 @@ public class PragaBean implements Serializable {
 		return partList;
 	}
 
+	public void postProcessXLS(Object document) {
+		HSSFWorkbook wb = (HSSFWorkbook) document;
+		HSSFSheet sheet = wb.getSheetAt(0);
+		HSSFRow header = sheet.getRow(0);
+
+		HSSFCellStyle cellStyle = wb.createCellStyle();
+		cellStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
+		cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
+		for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {
+			HSSFCell cell = header.getCell(i);
+
+			cell.setCellStyle(cellStyle);
+		}
+	}
+
+	public String atualizar(Praga praga) {
+		this.praga = praga;
+		return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
+	}
+
 	public Praga getPraga() {
 		return praga;
 	}
@@ -206,17 +233,8 @@ public class PragaBean implements Serializable {
 	}
 
 	public List<Praga> getPragas() {
-
-		try {
-			PragaDAO pragaDAO = new PragaDAO();
-			pragas = pragaDAO.listar();
-		} catch (RuntimeException erro) {
-			Messages.addGlobalError("Erro ao listar");
-			erro.printStackTrace();
-		}
 		return pragas;
 	}
-
 
 	public List<String> getPaths() {
 		return paths;
@@ -246,11 +264,12 @@ public class PragaBean implements Serializable {
 		this.partList = partList;
 	}
 
+	public String getEscalasFormatadas() {
+		return escalasFormatadas;
+	}
 
-	
-	 public String atualizar(Praga praga) {
-			this.praga = praga;
-			return "/pragas_e_danos/cadastrar_pragas.xhtml?faces-redirect=true";
-		}
+	public void setEscalasFormatadas(String escalasFormatadas) {
+		this.escalasFormatadas = escalasFormatadas;
+	}
 
 }

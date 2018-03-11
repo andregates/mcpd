@@ -19,7 +19,7 @@
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
 							<div class="card-header">
-								<i class="fa fa-table"></i> Históricos Lançados para a Cultura de: <h:outputText value="#{historicoBean.c.nome}" />
+								<i class="fa fa-table"></i> Histórico da Cultura <strong><h:outputText value="#{historicoBean.cultura.nome}" /></strong>
 								
 								<h:commandLink action="cadastrar_historico"
 									value="Cadastrar Histórico"
@@ -29,9 +29,9 @@
 							
 							<div class="card-footer small text-muted">
 
-								<p:dataTable var="hist" value="#{historicoBean.historicos}">
+								<p:dataTable var="hist" value="#{historicoBean.historicos}" style="font-size:12px;">
 
-									<p:column headerText="Id" width="5%" style="text-align:center;">
+									<p:column headerText="Id" width="2%" style="text-align:center;">
 										<h:outputText value="#{hist.historicoId}" />
 									</p:column>
 									
@@ -47,7 +47,7 @@
 									</p:column>
 
 								
-									<p:column headerText="Editar" width="7%"
+									<p:column width="2%"
 										style="text-align:center">
 										<p:commandLink action="#{historicoBean.atualizar(hist)}"
 											update="frm">
@@ -55,16 +55,18 @@
 										</p:commandLink>
 									</p:column>
 
-									<p:column headerText="Excluir" width="8%"
+									<p:column width="2%"
 										style="text-align:center">
 										<p:commandLink action="#{historicoBean.excluir(hist)}"
 											update="frm">
 											<img src="../img/trash.png" />
 										</p:commandLink>
 									</p:column>
-
-									
 								</p:dataTable>
+								<hr/>
+
+								<a id="botao" href="../culturas/download_planilha_historico.xhtml" title="Exportar formato .xls"
+											target="_blank"><img src="../img/document.png" /></a>
 							</div>
 						</div>
 

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="text/html; charset=UTF-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>MCPD</title>
+
+</h:head>
+
+<h:body>
+	<div>
+		<h:form id="form">
+			<h4 align="center" style="font-family: Arial; color: green;">Seu Download iniciará em instantes...</h4>
+			<h:commandLink id="botao" style="margin-left:46%">
+				<p:dataExporter type="xls" target="tbl" fileName="relatorio_historico_culturas"
+					postProcessor="#{historicoBean.postProcessXLS}" />
+			</h:commandLink>
+			<p:dataTable id="tbl" var="hist" style="font-size:12px;"
+				value="#{historicoBean.historicos}">
+
+				<p:column headerText="Id" width="4%" style="text-align:center;">
+					<h:outputText value="#{hist.historicoId}" />
+				</p:column>
+				
+				<p:column headerText="Cultura" width="4%" style="text-align:center;">
+					<h:outputText value="#{historicoBean.cultura.nome}" />
+				</p:column>
+				
+				<p:column headerText="Data de Lançamento">
+					<h:outputText value="#{hist.dataHistorico}" />
+				</p:column>
+
+				<p:column headerText="Descrição">
+					<h:outputText value="#{hist.descricao}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<script type="text/javascript">
+				window.setTimeout(function() {
+					document.getElementById("form:botao").click();
+					popup.close();
+				}, 3000);
+			</script>
+
+
+		</h:form>
+	</div>
+</h:body>
+
+
+</html>

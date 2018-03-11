@@ -9,7 +9,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 import org.primefaces.event.SelectEvent;
@@ -17,7 +16,12 @@ import org.primefaces.event.UnselectEvent;
 
 import dao.CulturaPropriedadeDAO;
 import dao.PropriedadeDAO;
-import dao.PropriedadeDAO;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import models.Cultura;
 import models.CulturaPropriedade;
 import models.Praga;
@@ -48,7 +52,7 @@ public class PropriedadeBean {
 
 	public String moveToCadastroPropriedade() {
 		init();
-		propriedade = new Propriedade(); 
+		propriedade = new Propriedade();
 		return "/propriedades/cadastrar_propriedade.xhtml?faces-redirect=true";
 	}
 
@@ -88,11 +92,13 @@ public class PropriedadeBean {
 	public List<Propriedade> getPropriedades() {
 		try {
 			PropriedadeDAO propriedadeDAO = new PropriedadeDAO();
-			propriedades = propriedadeDAO.listar();
+			propriedades = propriedadeDAO.listar("Propriedade");
+			
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar");
 			erro.printStackTrace();
 		}
+
 		return propriedades;
 	}
 
@@ -189,7 +195,7 @@ public class PropriedadeBean {
 		fc.addMessage(null, messagem);
 		propriedadeDao.deletar(propriedade);
 		novo();
-		this.propriedades = propriedadeDao.listar();
+		this.propriedades = propriedadeDao.listar("Propriedade");
 	}
 
 	public void addCulturaPropriedade(Cultura cultura) {
@@ -219,5 +225,21 @@ public class PropriedadeBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
 	}
+
+	public void postProcessXLS(Object document) {
+        HSSFWorkbook wb = (HSSFWorkbook) document;
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFRow header = sheet.getRow(0);
+         
+        HSSFCellStyle cellStyle = wb.createCellStyle();  
+        cellStyle.setFillForegroundColor(HSSFColor.GREY_25_PERCENT.index);
+        cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+         
+        for(int i=0; i < header.getPhysicalNumberOfCells();i++) {
+            HSSFCell cell = header.getCell(i);
+             
+            cell.setCellStyle(cellStyle);
+        }
+    }
 
 }

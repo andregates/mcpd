@@ -27,17 +27,17 @@
 
 							<div class="card-footer small text-muted">
 								<p:messages closable="true" />
-								<p:dataTable var="cult" value="#{culturaBean.culturas}">
+								<p:dataTable var="cult" value="#{culturaBean.culturas}" style="font-size:12px;">
 
 									<p:column headerText="Id" width="5%" style="text-align:center;">
 										<h:outputText value="#{cult.culturaId}" />
 									</p:column>
-									<p:column headerText="Nome" width="25%"
+									<p:column headerText="Nome" width="15%"
 										style="text-align:center">
 										<h:outputText value="#{cult.nome}" />
 									</p:column>
 
-									<p:column headerText="Área de Plantio" width="10%"
+									<p:column headerText="Área de Plantio"
 										style="text-align:center;">
 										<h:outputText value="#{cult.areaPlantio} m²" />
 									</p:column>
@@ -62,16 +62,16 @@
 											<f:convertDateTime pattern="dd/MM/yyyy" />
 										</h:outputText>
 									</p:column>
-									
-									<p:column headerText="Histórico" width="9%"
+
+									<p:column width="4%"
 										style="text-align:center">
 										<p:commandLink action="#{culturaBean.historico(cult)}"
 											update="frm">
-											<img src="../img/hist.png" />
+											<img src="../img/hist.png" title="Ver históricos"/>
 										</p:commandLink>
 									</p:column>
 
-									<p:column headerText="Editar" width="7%"
+									<p:column width="4%"
 										style="text-align:center">
 										<p:commandLink action="#{culturaBean.atualizar(cult)}"
 											update="frm">
@@ -79,7 +79,7 @@
 										</p:commandLink>
 									</p:column>
 
-									<p:column headerText="Excluir" width="8%"
+									<p:column width="4%"
 										style="text-align:center">
 										<p:commandLink action="#{culturaBean.excluir(cult)}"
 											update="frm">
@@ -103,6 +103,11 @@
 										</p:panelGrid>
 									</p:rowExpansion>
 								</p:dataTable>
+								
+								<hr/>
+
+								<a id="botao" href="../culturas/download_planilha_culturas.xhtml" title="Exportar formato .xls"
+											target="_blank"><img src="../img/document.png" /></a>
 							</div>
 						</div>
 

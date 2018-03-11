@@ -42,7 +42,7 @@ public class UsuarioBean {
 
 		try {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
-			usuarios = usuarioDAO.listar();
+			usuarios = usuarioDAO.listar("Usuario");
 
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar");
@@ -135,7 +135,7 @@ public class UsuarioBean {
 			UsuarioDAO usuarioDAO = new UsuarioDAO();
 
 			if (usuario.getDataInativacao() != null)
-				usuarios = usuarioDAO.listar();
+				usuarios = usuarioDAO.listar("Usuario");
 
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar");
@@ -158,6 +158,6 @@ public class UsuarioBean {
 		usuario.setDataInativacao(Calendar.getInstance().getTime());
 		usuarioDao.update(usuario);
 		this.usuario = new Usuario();
-		this.usuarios = usuarioDao.listar();
+		this.usuarios = usuarioDao.listar("Usuario");
 	}
 }

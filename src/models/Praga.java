@@ -38,18 +38,22 @@ public class Praga implements Serializable {
 
 	@Column
 	private String escala1;
-	
+
 	@Column
 	private String escala2;
-	
+
 	@Column
 	private String escala3;
-	
+
 	@Column
 	private String escala4;
-	
+
 	@Column
 	private String escala5;
+
+	/** Todas as escalas que foram cadastradas reunidas */
+	@Transient
+	private String escalas;
 
 	@Transient
 	private List<String> listaPath;
@@ -60,13 +64,10 @@ public class Praga implements Serializable {
 	@OneToMany(mappedBy = "praga", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<PragaCultura> pragaCultura = new ArrayList<PragaCultura>();
 
-	
-
 	public Praga(String nome, String nomeCientifico, String descricao, String acaoCombate, String escala1,
-			String escala2, String escala3, String escala4, String escala5, List<String> listaPath,
+			String escala2, String escala3, String escala4, String escala5, String escalas, List<String> listaPath,
 			List<Registro> registros, List<PragaCultura> pragaCultura) {
 		super();
-	
 		this.nome = nome;
 		this.nomeCientifico = nomeCientifico;
 		this.descricao = descricao;
@@ -76,6 +77,7 @@ public class Praga implements Serializable {
 		this.escala3 = escala3;
 		this.escala4 = escala4;
 		this.escala5 = escala5;
+		this.escalas = escalas;
 		this.listaPath = listaPath;
 		this.registros = registros;
 		this.pragaCultura = pragaCultura;
@@ -160,8 +162,6 @@ public class Praga implements Serializable {
 	public void setListaPath(List<String> listaPath) {
 		this.listaPath = listaPath;
 	}
-	
-	
 
 	public String getEscala2() {
 		return escala2;
@@ -193,6 +193,14 @@ public class Praga implements Serializable {
 
 	public void setEscala5(String escala5) {
 		this.escala5 = escala5;
+	}
+
+	public String getEscalas() {
+		return escalas;
+	}
+
+	public void setEscalas(String escalas) {
+		this.escalas = escalas;
 	}
 
 	@Override
@@ -237,32 +245,32 @@ public class Praga implements Serializable {
 			if (other.escala1 != null)
 				return false;
 		} else if (!escala1.equals(other.escala1))
-			return false;		
-		
+			return false;
+
 		if (escala2 == null) {
 			if (other.escala2 != null)
 				return false;
 		} else if (!escala2.equals(other.escala2))
 			return false;
-		
+
 		if (escala3 == null) {
 			if (other.escala3 != null)
 				return false;
 		} else if (!escala3.equals(other.escala3))
 			return false;
-		
+
 		if (escala4 == null) {
 			if (other.escala4 != null)
 				return false;
 		} else if (!escala4.equals(other.escala4))
 			return false;
-		
+
 		if (escala5 == null) {
 			if (other.escala5 != null)
 				return false;
 		} else if (!escala5.equals(other.escala5))
 			return false;
-		
+
 		if (nome == null) {
 			if (other.nome != null)
 				return false;

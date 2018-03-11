@@ -29,7 +29,8 @@
 
 							<div class="card-footer small text-muted">
 								<p:messages closable="true" />
-								<p:dataTable var="prag" value="#{pragaBean.pragas}">
+								<p:dataTable var="prag" value="#{pragaBean.pragas}"
+									style="font-size:12px;">
 
 									<p:column headerText="Id" width="3%" style="text-align:center;">
 										<h:outputText value="#{prag.pragaId}" />
@@ -44,36 +45,17 @@
 									</p:column>
 
 									<p:column headerText="Gravidade do Dano"
-
-										style="text-align:center;" width="9%" >
-										<h:outputText value="#{prag.escala1}" />
+										style="text-align:center;" width="9%">
+										<h:outputText value="#{prag.escalas}" />
 									</p:column>
 
-									<p:column style="width:3%">
+									<p:column style="width:1.5%" align="center">
 										<p:rowToggler />
-									</p:column>
-									
-									<p:column headerText="Editar" width="6%"
-										style="text-align:center">
-										<p:commandLink action="#{pragaBean.atualizar(prag)}"
-											update="form">
-											<img src="../img/edit.png" />
-										</p:commandLink>
-
-									</p:column>
-
-									<p:column headerText="Excluir" width="7%"
-										style="text-align:center">
-										<p:commandLink action="#{pragaBean.excluir(prag)}"
-											update="form">
-											<img src="../img/trash.png" />
-										</p:commandLink>
-
 									</p:column>
 
 									<p:rowExpansion>
 										<p:panelGrid columns="2" columnClasses="label,value"
-											style="width:500px; margin-left:4%;">
+											style="width:500px;">
 
 											<h:outputText value="Descrição" style="font-weight:bold;" />
 											<h:outputText value="#{prag.descricao}" />
@@ -84,24 +66,35 @@
 
 										</p:panelGrid>
 									</p:rowExpansion>
-									
-									
+
+									<p:column width="2%" style="text-align:center">
+										<p:commandLink action="#{pragaBean.atualizar(prag)}"
+											update="form">
+											<img src="../img/edit.png" />
+										</p:commandLink>
+
+									</p:column>
+
+									<p:column width="2%" style="text-align:center">
+										<p:commandLink action="#{pragaBean.excluir(prag)}"
+											update="form">
+											<img src="../img/trash.png" />
+										</p:commandLink>
+
+									</p:column>
 								</p:dataTable>
+								<hr/>
 
-								
-
+								<a id="botao" href="../pragas_e_danos/download.xhtml" title="Exportar formato .xls"
+											target="_blank"><img src="../img/document.png" /></a>
 							</div>
 						</div>
-
 					</div>
 					<!-- /.container-fluid -->
-
 				</div>
 				<!-- /.content-wrapper -->
 			</h:form>
 		</ui:define>
-
 	</ui:composition>
-
 </h:body>
 </html>

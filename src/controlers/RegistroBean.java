@@ -63,7 +63,7 @@ public class RegistroBean implements Serializable{
     public void listar(){
         try {
            RegistroDAO culturaDAO = new RegistroDAO();
-            registros = culturaDAO.listar();
+            registros = culturaDAO.listar("Registro");
         } catch (RuntimeException erro) {
             Messages.addGlobalError("Erro ao listar");
             erro.printStackTrace();
@@ -84,7 +84,7 @@ public class RegistroBean implements Serializable{
             RegistroDAO registroDAO = new RegistroDAO();
             registroDAO.deletar(registro);
 
-            registros = registroDAO.listar();
+            registros = registroDAO.listar("Registro");
 
             Messages.addGlobalInfo("Cadastro removido com sucesso");
 
