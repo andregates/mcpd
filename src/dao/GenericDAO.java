@@ -13,10 +13,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import util.HibernateUtil;
 
-public class GenericDAO<T> {
+public class GenericDAO<T> extends JdbcDaoSupport{
 
 	private Class<T> classe;
 
