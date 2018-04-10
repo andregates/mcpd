@@ -9,22 +9,66 @@
 
 	<ui:composition template="/dashboard/common.xhtml">
 		<ui:define name="content">
-      
+
 			<h:form id="frm">
 				<div class="content-wrapper">
 
 					<div class="container-fluid">
 
+						<h:form>
+							<div class="card mb-3">
+								<div class="card-footer small text-muted">
+									Data Inicial:
+									<h:outputLabel for="button" style="font-size:14px;" />
+									<p:calendar id="button" showOn="button" />
+									Data Final:
+									<h:outputLabel for="button2" style="font-size:14px;" />
+									<p:calendar id="button2" showOn="button" />
+
+									<br /> <br />
+									<div class="form-group">
+										Selecione as Culturas para geração do gráfico: <br /> <label
+											class="control-label col-sm-7"> </label>
+										<h:form id="formPraga">
+
+											<p:growl id="msg" showDetail="true" escape="false" />
+
+											<p:dataTable id="checkboxDT" var="culturaLista"
+												value="#{registrosGraficosUtil.listaCulturas}"
+												selection="#{registrosGraficosUtil.listaCulturasSelecionadas}"
+												rowKey="#{culturaLista.culturaId}" style="margin-bottom:0"
+												styleClass="table">
+
+												<p:column selectionMode="multiple"
+													style="width:16px;text-align:center" />
+												<p:column headerText="Id" style="width:20px;">
+													<h:outputText value="#{culturaLista.culturaId}" />
+												</p:column>
+												<p:column headerText="Nome" style="width:230px;">
+													<h:outputText value="#{culturaLista.nome}" />
+												</p:column>
+
+											</p:dataTable>
+											<br />
+										</h:form>
+										<p:commandButton value="Gerar Gráfico" action="#{registrosGraficosUtil.mostrarGrafico}"></p:commandButton>
+									</div>
+								</div>
+							</div>
+						</h:form>
+						<hr />
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
-							<p:chart type="line" model="#{graficosUtil.lineModel2}" style="height:300px;" responsive="true"/>
+							<p:chart type="line" rendered="#{registrosGraficosUtil.registrosGraficos != null}"
+								model="#{registrosGraficosUtil.registrosGraficos}"
+								style="height:300px;" responsive="true" />
 						</div>
 					</div>
 					<!-- /.container-fluid -->
 				</div>
 				<!-- /.content-wrapper -->
 			</h:form>
-			
+
 		</ui:define>
 	</ui:composition>
 
