@@ -51,7 +51,11 @@
 											</p:dataTable>
 											<br />
 										</h:form>
-										<p:commandButton value="Gerar Gráfico" action="#{registrosGraficosUtil.mostrarGrafico}"></p:commandButton>
+										<h:commandButton class="btn btn-default"
+											style="background-color: green; color:white; margin-right:5px"
+											value="Gerar Gráfico"
+											action="#{registrosGraficosUtil.mostrarGrafico}"
+											 />
 									</div>
 								</div>
 							</div>
@@ -59,7 +63,8 @@
 						<hr />
 						<!-- Example Tables Card -->
 						<div class="card mb-3">
-							<p:chart type="line" rendered="#{registrosGraficosUtil.registrosGraficos != null}"
+							<p:chart type="line"
+								rendered="#{registrosGraficosUtil.registrosGraficos != null}"
 								model="#{registrosGraficosUtil.registrosGraficos}"
 								style="height:300px;" responsive="true" />
 						</div>

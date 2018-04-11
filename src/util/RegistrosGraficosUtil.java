@@ -1,10 +1,11 @@
 package util;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -31,7 +32,7 @@ public class RegistrosGraficosUtil implements Serializable {
 	private Date dataInicial;
 	private Date dataFinal;
 	private Registro registro;
-	private List<Cultura> listaCulturas;
+	private Set<Cultura> listaCulturas;
 	private ArrayList<Cultura> listaCulturasSelecionadas;
 
 	FacesContext fc = FacesContext.getCurrentInstance();
@@ -41,7 +42,7 @@ public class RegistrosGraficosUtil implements Serializable {
 	public void init() {
 
 		CulturaDAO dao = new CulturaDAO();
-		listaCulturas = dao.listar("Cultura");
+		listaCulturas = dao.findByCulturaRegistro();
 		listaCulturasSelecionadas = new ArrayList<>();
 		createLineModels();
 	}
@@ -58,11 +59,11 @@ public class RegistrosGraficosUtil implements Serializable {
 					listaCulturasSelecionadas);
 			registrosGraficos = initCategoryModel(registroList);
 			registrosGraficos.setTitle("Registros");
-			// registrosGraficos.setLegendPosition("e");
+			registrosGraficos.setLegendPosition("e");
 			registrosGraficos.setShowPointLabels(true);
 			registrosGraficos.getAxes().put(AxisType.X, new CategoryAxis("Período"));
 			Axis yAxis = registrosGraficos.getAxis(AxisType.Y);
-			yAxis.setLabel("Longitude");
+			yAxis.setLabel("Escala");
 			yAxis.setMin(0);
 			yAxis.setMax(20);
 		} else {
@@ -75,16 +76,16 @@ public class RegistrosGraficosUtil implements Serializable {
 		LineChartModel model = new LineChartModel();
 
 		LineChartSeries culturas = new LineChartSeries();
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		for (int i = 0; i < registroList.size(); i++) {
 
-			List<Registro> registros = registroList.get(i);
-			Cultura cultura = (Cultura) registros.get(i).getCultura();
-			culturas.setLabel(cultura.getNome());
+			culturas.setLabel(registroList.get(i).get(0).getCultura().getNome());
 
 			// String[] data = registro.getDataRegistro().toString().split("-");
-			for (int j = 0; j < registroList.get(i).size(); j++)
-				culturas.set(registros.get(i).getDataRegistro().toString(), registros.get(i).getEscala());
-
+			for (int j = 0; j < registroList.get(i).size(); j++) {
+				culturas.set(formato.format(registroList.get(i).get(j).getDataRegistro()).toString(), registroList.get(i).get(j).getEscala());
+				//culturas = new LineChartSeries();
+			}
 			model.addSeries(culturas);
 			culturas = new LineChartSeries();
 		}
@@ -105,11 +106,11 @@ public class RegistrosGraficosUtil implements Serializable {
 		this.registro = registro;
 	}
 
-	public List<Cultura> getListaCulturas() {
+	public Set<Cultura> getListaCulturas() {
 		return listaCulturas;
 	}
 
-	public void setListaCulturas(ArrayList<Cultura> listaCulturas) {
+	public void setListaCulturas(Set<Cultura> listaCulturas) {
 		this.listaCulturas = listaCulturas;
 	}
 
