@@ -27,23 +27,27 @@ public class RegistroDAO extends GenericDAO<Registro> {
 			for (int i = 0; i < culturasSelecionadas.size(); i++) {
 
 				Query query = sessao.getSession()
-						.createQuery("select r.escala, r.dataRegistro, c.culturaId, c.nome from Registro r "
-								+ "inner join r.cultura as c " + 
-								" where c.culturaId = " + culturasSelecionadas.get(i).getCulturaId());
-
+								.createQuery("SELECT r.cultura.culturaId, r.cultura.nome, r.dataRegistro, r.escala, (sum(r.escala)/count(r.cultura.culturaId)) "+
+										" FROM Registro r INNER JOIN r.cultura as c "+			
+										" GROUP BY r.cultura.culturaId, r.dataRegistro, r.dataRegistro " +
+										" HAVING (((r.cultura.culturaId) = "+ culturasSelecionadas.get(i).getCulturaId() +")) ORDER BY r.dataRegistro");
+				
 				@SuppressWarnings("unchecked")
 				List<Object> rs = query.list();
 				for (int a = 0; a < rs.size(); a++) {
 
 					Object[] obj = (Object[]) rs.get(a);
 
-					Registro registro = new Registro();
-					registro.setEscala(((Integer) obj[0]));
-					registro.setDataRegistro(((Date) obj[1]));
 
 					Cultura cultura = new Cultura();
-					cultura.setCulturaId((Integer) obj[2]);
-					cultura.setNome(((String) obj[3]));
+					cultura.setCulturaId((Integer) obj[0]);
+					cultura.setNome(((String) obj[1]));
+
+					Registro registro = new Registro();
+					registro.setDataRegistro(((Date) obj[2]));
+					registro.setEscala(((Integer) obj[3]));
+					
+					cultura.setEscalaPonderada((Long)obj[4]);
 
 					registro.setCultura(cultura);
 
@@ -64,24 +68,6 @@ public class RegistroDAO extends GenericDAO<Registro> {
 			throw e;
 
 		}
-
-		/*
-		 * List<Registro> registros = new ArrayList<>(); List<List<Registro>>
-		 * registrosAll = new ArrayList<>(); Session session =
-		 * HibernateUtil.getSessionFactory().openSession();
-		 * 
-		 * for (int i = 0; i < culturasSelecionadas.size(); i++) { String hql =
-		 * "select c.culturaId, r.escala, c.nome, r.dataRegistro from Registro r " +
-		 * " inner join r.cultura as c" + "	where c.culturaId =:id";
-		 * 
-		 * 
-		 * Query query = session.createQuery(hql); query.setParameter("id",
-		 * culturasSelecionadas.get(i).getCulturaId());
-		 * 
-		 * registros = query.list();
-		 * 
-		 * registrosAll.add(registros); }
-		 */
 
 	}
 }

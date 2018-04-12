@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -67,7 +68,13 @@ public class Cultura implements Serializable {
 
 	@OneToMany(mappedBy = "cultura", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<CulturaPropriedade> culturaPropriedade = new ArrayList<CulturaPropriedade>();
-
+	
+	/**Atributo não persistido, com objetivo de medir a quantidade de vezes que foi realizado o registro
+	 * de uma determinada cultura, realizado a divisão da soma das escalas pela quantidade de ocorrencias<br/>
+	 * <b>(sum(escala)/count(ocorrencias))</b>*/
+	@Transient
+	private Long escalaPonderada;
+	
 	public Cultura(Integer culturaId, String nome, String descricao, Date periodoPlantio, Date periodoColheita,
 			String areaPlantio, String obs, Date dataAtivacao, Date dataInativacao, List<Historico> historicoDaCultura,
 			List<Registro> registros, List<PragaCultura> pragaCultura, List<CulturaPropriedade> culturaPropriedade) {
@@ -197,6 +204,14 @@ public class Cultura implements Serializable {
 
 	public void setDataInativacao(Date dataInativacao) {
 		this.dataInativacao = dataInativacao;
+	}
+	
+	public Long getEscalaPonderada() {
+		return escalaPonderada;
+	}
+
+	public void setEscalaPonderada(Long escalaPonderada) {
+		this.escalaPonderada = escalaPonderada;
 	}
 
 	@Override
