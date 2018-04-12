@@ -36,14 +36,11 @@
 											<p:dataTable id="checkboxDT" var="culturaLista"
 												value="#{registrosGraficosUtil.listaCulturas}"
 												selection="#{registrosGraficosUtil.listaCulturasSelecionadas}"
-												rowKey="#{culturaLista.culturaId}" style="margin-bottom:0"
+												rowKey="#{culturaLista.culturaId}" style="margin-bottom:0; font-size:12px;"
 												styleClass="table">
 
 												<p:column selectionMode="multiple"
 													style="width:16px;text-align:center" />
-												<p:column headerText="Id" style="width:20px;">
-													<h:outputText value="#{culturaLista.culturaId}" />
-												</p:column>
 												<p:column headerText="Nome" style="width:230px;">
 													<h:outputText value="#{culturaLista.nome}" />
 												</p:column>
@@ -51,11 +48,10 @@
 											</p:dataTable>
 											<br />
 										</h:form>
-										<h:commandButton class="btn btn-default"
-											style="background-color: green; color:white; margin-right:5px"
+										<h:commandButton class="btn btn-default" id="botao"
+											style="background-color: green; color:white; margin-right:5px; font-size:12px;"
 											value="Gerar Gráfico"
-											action="#{registrosGraficosUtil.mostrarGrafico}"
-											 />
+											action="#{registrosGraficosUtil.mostrarGrafico}"/>
 									</div>
 								</div>
 							</div>
