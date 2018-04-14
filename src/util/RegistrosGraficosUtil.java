@@ -61,7 +61,7 @@ public class RegistrosGraficosUtil implements Serializable {
 			registrosGraficos.setTitle("Registros");
 			registrosGraficos.setLegendPosition("e");
 			registrosGraficos.setShowPointLabels(true);
-			registrosGraficos.getAxes().put(AxisType.X, new CategoryAxis("Período"));
+			registrosGraficos.getAxes().put(AxisType.X, new CategoryAxis("PerÃ­odo"));
 			Axis yAxis = registrosGraficos.getAxis(AxisType.Y);
 			yAxis.setLabel("Escala");
 			yAxis.setMin(0);
@@ -83,7 +83,7 @@ public class RegistrosGraficosUtil implements Serializable {
 
 			// String[] data = registro.getDataRegistro().toString().split("-");
 			for (int j = 0; j < registroList.get(i).size(); j++) {
-				culturas.set(formato.format(registroList.get(i).get(j).getDataRegistro()).toString(), registroList.get(i).get(j).getEscala());
+				culturas.set(formato.format(registroList.get(i).get(j).getDataRegistro()).toString(), registroList.get(i).get(j).getCultura().getEscalaPonderada());
 				//culturas = new LineChartSeries();
 			}
 			model.addSeries(culturas);
