@@ -97,6 +97,15 @@ public class Cultura implements Serializable {
 	public Cultura() {
 		super();
 	}
+	
+	
+
+	public Cultura(Integer culturaId, String nome, String descricao) {
+		super();
+		this.culturaId = culturaId;
+		this.nome = nome;
+		this.descricao = descricao;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
