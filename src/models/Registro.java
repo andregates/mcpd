@@ -173,6 +173,11 @@ public class Registro implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public void setKey(String key) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
