@@ -26,7 +26,6 @@ import util.Upload;
 
 @SuppressWarnings("serial")
 @ManagedBean(name = "pragaBean")
-// Os objetos s� ficam "vivos" enquanto o usu�rio estiver na tela.
 @SessionScoped
 public class PragaBean implements Serializable {
 
@@ -41,6 +40,11 @@ public class PragaBean implements Serializable {
 	private Part uploadedPhoto;
 
 	private String escalasFormatadas;
+	
+	@PostConstruct
+	public void init() {
+		this.pragas = getPragas();
+	}
 
 	/**
 	 * Metodo para limpar o campo. Chamar lista na view, quando o usuario clicar no
@@ -48,6 +52,7 @@ public class PragaBean implements Serializable {
 	 */
 	public void novo() {
 		praga = new Praga();
+		pragas = new ArrayList<>();
 	}
 
 	public String moveToCadastraPraga() {
@@ -233,6 +238,13 @@ public class PragaBean implements Serializable {
 	}
 
 	public List<Praga> getPragas() {
+		try {
+			PragaDAO pragaDAO = new PragaDAO();
+			pragas = pragaDAO.listar("Praga");
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao listar");
+			erro.printStackTrace();
+		}
 		return pragas;
 	}
 
