@@ -128,7 +128,8 @@ public class PropriedadeBean {
 	public String salvar() {
 		try {
 			PropriedadeDAO propriedadeDAO = new PropriedadeDAO();
-			if (propriedade.getPropriedadeId() == 0) {
+			
+			if (propriedade.getPropriedadeId() == null) {
 
 				if (valida()) {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,
